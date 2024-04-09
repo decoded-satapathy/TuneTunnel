@@ -29,11 +29,10 @@ userRouter.post('/signup', async (c) => {
     const isUserExist = await prisma.user.findUnique({
       where: {
         email: body.email,
-        password: body.password
       }
     })
 
-    if (!isUserExist) {
+    if (isUserExist) {
       c.status(403);
       return c.json({ msg: "Email already in use." })
     }
@@ -74,6 +73,10 @@ userRouter.post("/signin", async (c) => {
       where: {
         email: body.email,
         password: body.password
+      },
+      select: {
+        name: true,
+        id: true
       }
     })
 
@@ -81,7 +84,7 @@ userRouter.post("/signin", async (c) => {
 
     if (user) {
       const token = await sign({ id: user.id }, c.env.JWT_SECRET)
-      return c.json({ jwt: token })
+      return c.json({ jwt: token, name: user.name })
     } else {
       c.status(405)
       return c.json({ msg: "User not found" })
