@@ -34,17 +34,17 @@ function Discover() {
         <h2 className="text-3xl font-bold text-white ">
           Discover {genreTitle}
         </h2>
-        <select className="bg-black text-gray-300  p-3 text-sm rounded-lg outline-none sm:mt-0 mt-5">
-          onChange={(e) => dispatch(selectGenreListId(e.target.value))}
-          value={genreListId || "Pop"}
-          {genres.map((genre) => {
-            return (
-              <option key={genre.value} value={genre.value}>
-                {genre.title}
-              </option>
-            );
-          })}
-        </select>
+        {/* <select className="bg-black text-gray-300  p-3 text-sm rounded-lg outline-none sm:mt-0 mt-5"> */}
+        {/*   onChange={(e) => dispatch(selectGenreListId(e.target.value))} */}
+        {/*   value={genreListId || "Pop"} */}
+        {/*   {genres.map((genre) => { */}
+        {/*     return ( */}
+        {/*       <option key={genre.value} value={genre.value}> */}
+        {/*         {genre.title} */}
+        {/*       </option> */}
+        {/*     ); */}
+        {/*   })} */}
+        {/* </select> */}
       </div>
       <div className="flex flex-wrap sm:justify-start justify-center gap-8">
         {topCharts.map((song, i) => {

@@ -9,6 +9,7 @@ const App = () => {
   return (
     <div className="relative flex">
       <Routes>
+        {console.log("from app.jsx")}
         <Route path="/signup" element={<Signup></Signup>} />
         <Route path="/signin" element={<SignIn></SignIn>} />
         <Route path="/*" element={<NonAuthPage></NonAuthPage>} />

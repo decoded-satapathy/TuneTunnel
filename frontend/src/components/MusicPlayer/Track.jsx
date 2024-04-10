@@ -6,7 +6,6 @@ const Track = ({ isPlaying, isActive, activeSong }) => (
       className={`${isPlaying && isActive ? "animate-[spin_3s_linear_infinite]" : ""
         } hidden sm:block h-16 w-16 mr-4`}
     >
-      {console.log("activeSong: " + activeSong)}
       <img
         src={activeSong?.photo_url}
         alt="cover art"

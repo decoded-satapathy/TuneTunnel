@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiSearch } from "react-icons/fi"
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, login } from "../redux/features/userSlice";
 
 const Searchbar = () => {
+  useEffect(() => { console.log("form searchBar component") }, [])
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
   const name = useSelector((state) => state.user.name);
@@ -37,15 +38,14 @@ const Searchbar = () => {
               }}>Log Out</button>
 
 
-            <div className="relative inline-flex items-center justify-center w-12 h-12 border-2 border-gray-600 overflow-hidden bg-gradient-to-br from-purple-900 to-blue-900 rounded-full ">
-              <span class="font-medium text-gray-600 dark:text-gray-300">{name.split("")[0]}</span>
+            <div className="relative inline-flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12 border-2 border-gray-600 overflow-hidden bg-gradient-to-br from-purple-900 to-blue-900 rounded-full ">
+              <span className="font-medium text-gray-600 dark:text-gray-300">{name.split("")[0]}</span>
             </div>
           </div>
         ) :
 
-          <button type="button" className="text-white mr-14 md:mr-4 bg-gradient-to-br from-purple-900 to-blue-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-full text-md px-5 py-2.5 text-center me-2 mb-2 mt-3 border-gray-600 border-2"
+          <button type="button" className="text-white mr-14 md:mr-4 bg-gradient-to-br from-purple-900 to-blue-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-full text-xs w-max sm:text-sm px-3 py-2 sm:px-5 sm:py-2.5 text-center me-2 mb-2 mt-3  border-gray-600 border-2"
             onClick={() => {
-              dispatch(login());
               navigate('/signin');
             }}>Log In</button>
         }
