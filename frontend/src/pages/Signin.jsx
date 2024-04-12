@@ -35,7 +35,7 @@ export function SignIn() {
 
 
       <div className="mt-4">
-        <ButtonComponent label="Sign Up" onClick={signInButtonOnClick}></ButtonComponent>
+        <ButtonComponent label="Sign In" onClick={signInButtonOnClick}></ButtonComponent>
       </div>
 
 
