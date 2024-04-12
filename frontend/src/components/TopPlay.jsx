@@ -77,7 +77,6 @@ const TopPlay = () => {
       <div className="w-full flex flex-col">
         <div className="flex flex-row justify-between items-center">
           <h2 className="text-white text-2xl font-bold">Top Plays</h2>
-          <Link className="text-gray-300 text-base cursor-pointer" to="/top-plays">See more</Link>
         </div>
 
         <div className="mt-4 flex flex-col gap-1">
