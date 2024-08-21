@@ -117,7 +117,7 @@ const TopPlay = () => {
 
 
       {/* </div> */}
-    </div >
+    </div>
   )
 }
 

@@ -1,85 +1,205 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { HeadingComponent } from "../components/HeadingComponent"
-import { Subheading } from "../components/Subheading"
-import { InputComponent } from "../components/InputComponent";
-import { ButtonComponent } from "../components/ButtonComponent";
-import { BottomWarningComponent } from "../components/BottomWarningComponent";
+import { useNavigate, Link } from "react-router-dom";
 import { BACKEND_URL } from "../../config";
 import { login, changeName } from "../redux/features/userSlice";
 import { useDispatch } from "react-redux";
-import Preloader from "../assets/Logos/svg/preloader_ripples.svg"
-
+import Preloader from "../assets/Logos/svg/preloader_ripples.svg";
+import "./Login.css"
 export function SignIn() {
+  const handleSlide1 = () => {
+    document.querySelector(".loginMsg").classList.toggle("visibility");
+    document.querySelector(".frontbox").classList.add("moving");
+    document.querySelector(".signupMsg").classList.toggle("visibility");
+    document.querySelector(".signup").classList.toggle("hide");
+    document.querySelector(".login").classList.toggle("hide");
+  };
+
+  const handleSlide2 = () => {
+    document.querySelector(".loginMsg").classList.toggle("visibility");
+    document.querySelector(".frontbox").classList.remove("moving");
+    document.querySelector(".signupMsg").classList.toggle("visibility");
+    document.querySelector(".signup").classList.toggle("hide");
+    document.querySelector(".login").classList.toggle("hide");
+  };
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const inputFields = {
-  //   username: "",
-  //   password: "",
-  // }
-
+  
   const emailRef = useRef();
   const passwordRef = useRef();
   const [isLoading, setIsLoading] = useState(false);
 
-  return <div className="flex justify-center items-center h-screen w-max  sm:w-screen bg-white sm:bg-gradient-to-br sm:from-purple-300  sm:to-blue-300">
-    {isLoading ? (<Loader />) : null}
-    <div className="pl-5  bg-white border-0 border-white  sm:border-2 sm:border-gray-100 w-screen h-max sm:w-80 pr-5 sm:h-max rounded-md pb-5 shadow-none sm:shadow-2xl sm:shadow-blue-800 ">
-      <div className="mb-7 flex flex-col justify-center items-center text-center">
-        <HeadingComponent title="Sign In"></HeadingComponent>
-        <Subheading content="Enter your credentials to access your account"></Subheading>
-      </div>
-
-      <InputComponent label="Email" placeholder="Enter your email" reference={emailRef}></InputComponent>
-      <InputComponent label="Password" placeholder="Enter your password" reference={passwordRef} ></InputComponent>
-
-
-      <div className="mt-4">
-        <ButtonComponent label="Sign In" onClick={signInButtonOnClick}></ButtonComponent>
-      </div>
-
-
-      <BottomWarningComponent text="Don't have an account?" to="/signup" linkLabel={"SignUp"}></BottomWarningComponent>
-
-    </div>
-  </div >
-
   async function signInButtonOnClick() {
     setIsLoading(true);
     if (emailRef.current.value === "" || passwordRef.current.value === "") {
-      return alert("Enter all the details")
+      alert("Enter all the details");
+      setIsLoading(false);
+      return;
     }
 
-    const res = await fetch(`${BACKEND_URL}/api/v1/user/signin`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email: emailRef.current.value, password: passwordRef.current.value })
-    });
-    const ans = await res.json();
-    if (res.status === 405) {
-      alert(ans.msg);
-      setIsLoading(false)
-      return navigate("/signup")
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/v1/user/signin`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: emailRef.current.value, password: passwordRef.current.value })
+      });
+
+      const ans = await res.json();
+
+      if (res.status === 405) {
+        alert(ans.msg);
+        navigate("/signup");
+      } else if (res.status === 411) {
+        alert(ans.msg);
+      } else {
+        localStorage.setItem("token", ans.jwt);
+        dispatch(login());
+        dispatch(changeName(ans.name));
+        alert("Login is successful");
+        navigate("/", { state: ans });
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      alert("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-    if (res.status === 411) {
-      setIsLoading(false)
-      return alert(ans.msg)
-
-    }
-
-    localStorage.setItem("token", ans.jwt);
-    dispatch(login());
-    dispatch(changeName(ans.name));
-    setIsLoading(false)
-    alert("Login is successfully")
-
-    navigate("/", { state: ans })
   }
+
+  const firstNameRef = useRef();
+  const emailRef1 = useRef();
+  const passwordRef1 = useRef();
+
+  const signUpButtonOnClick = async () => {
+    setIsLoading(true);
+    const enteredFirstName = firstNameRef.current.value;
+    const enteredEmail = emailRef1.current.value;
+    const enteredPassword = passwordRef1.current.value;
+    if (!enteredFirstName || !enteredEmail || !enteredPassword) {
+      setIsLoading(false);
+      return alert("Enter all the details");
+    }
+
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/v1/user/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: enteredFirstName,
+          email: enteredEmail,
+          password: enteredPassword,
+        }),
+      });
+
+      const ans = await res.json();
+      setIsLoading(false);
+
+      if (res.status === 411 || res.status === 403) {
+        return alert(ans.msg);
+      }
+
+      dispatch(login());
+      dispatch(changeName(enteredFirstName));
+      alert("New user added successfully");
+
+      localStorage.setItem("token", ans.jwt);
+
+      navigate("/", { state: ans });
+    } catch (error) {
+      setIsLoading(false);
+      alert("An error occurred. Please try again.");
+    }
+  };
+  // const handleSwitch1 = () => {
+  //   document.querySelector(".login").classList.add("hide");
+  //   document.querySelector(".signup").classList.remove("hide");
+  // };
+
+  // const handleSwitch2 = () => {
+  //   document.querySelector(".login").classList.remove("hide");
+  //   document.querySelector(".signup").classList.add("hide");
+  // };
+
+  return (
+    <div className="background1">
+      {isLoading ? <Loader /> : null}
+      <div className="container">
+        <div className="backbox">
+          <div className="loginMsg">
+            <div className="textcontent" onClick={handleSlide1} id="switch1">
+              <p className="title">Don't Have an account?</p>
+              <Link to="/signup">
+                <button>Sign Up</button>
+              </Link>
+            </div>
+          </div>
+          <div className="signupMsg visibility">
+            <div className="textcontent" onClick={handleSlide2} id="switch2">
+              <p className="title">Have an account?</p>
+              <Link to="/signin">
+                <button>Log In</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="frontbox">
+          <div className="login">
+            <h2>Log In</h2>
+            <div className="inputbox">
+              <input
+                type="text"
+                name="email"
+                placeholder="Email"
+                ref={emailRef}
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                ref={passwordRef}
+              />
+            </div>
+            <p><Link to="/forgot-password">Forgot password?</Link></p>
+            <button onClick={signInButtonOnClick}>Log In</button>
+          </div>
+
+          <div className="signup hide">
+            <h2>Sign Up</h2>
+            <div className="inputbox">
+              <input
+                type="text"
+                name="fullName"
+                placeholder="Enter Full Name"
+                ref={firstNameRef}
+              />
+              <input
+                type="text"
+                name="email"
+                placeholder="Enter Email"
+                ref={emailRef1}
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter Password"
+                ref={passwordRef1}
+              />
+            </div>
+            <button onClick={signUpButtonOnClick}>Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
+
 const Loader = () => (
   <div className="fixed inset-0 flex items-center justify-center z-50 bg-white bg-opacity-70">
-    <img className='w-40 h-40' src={Preloader}></img>
+    <img className='w-40 h-40' src={Preloader} alt="Loading..." />
   </div>
 );
+

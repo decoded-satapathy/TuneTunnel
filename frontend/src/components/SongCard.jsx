@@ -15,11 +15,11 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
     dispatch(playPause(true));
   };
   return (
-    <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">
-      <div className="relative w-full h-56 group">
+    <div className="flex flex-col w-[180px] p-4 bg-white bg-opacity-50 animate-slideup rounded-[20px] hover:scale-105 transition-all duration-[0.5s] cursor-pointer">
+      <div className="relative w-full h-[10.5rem] group ">
         <div
-          className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${activeSong?.title === song.title
-            ? "flex bg-black bg-opacity-100"
+          className={`absolute inset-0 justify-center items-center bg-black bg-opacity-80 h-[9.3rem] rounded-xl group-hover:flex ${activeSong?.title === song.title
+            ? "flex bg-red-500 bg-opacity-60"
             : "hidden"
             }`}
         >
@@ -32,12 +32,12 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
           />
         </div>
         <img
-          className="object-cover h-56"
+          className="object-cover h-45 rounded-xl"
           alt="song_img"
           src={song.photo_url}
         />
       </div>
-      <div className="mt-4 flex flex-col">
+      <div className="-mt-5 flex flex-col">
         <p className="font-semibold text-lg text-white truncate">
           <a href={`https://www.google.com/search?q=${song?.title}+lyrics`} target="_blank">
             <p className="text-xl font-bold text-white">
@@ -57,7 +57,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
           </Link>
         </p>
       </div>
-    </div >
+    </div>
   );
 };
 

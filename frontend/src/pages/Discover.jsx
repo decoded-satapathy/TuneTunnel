@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { selectGenreListId } from "../redux/features/playerSlice.js";
 import { useGetSongsByGenreQuery } from "../redux/services/shazamCore.js";
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 function Discover() {
   const dispatch = useDispatch();
   const { activeSong, isPlaying, genreListId } = useSelector((state) => state.player);
@@ -14,7 +16,13 @@ function Discover() {
   // console.log("data is : ")
   // console.log(data)
 
-
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 7,
+    slidesToScroll: 5
+  };
   const [isFetching, setIsFetching] = useState(true);
   setTimeout(() => {
     setIsFetching(false);
@@ -30,7 +38,7 @@ function Discover() {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col sm:flex-row justify-between items-center mt-4 mb-10 w-full ">
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-10 w-full ">
         <h2 className="text-3xl font-bold text-white ">
           Discover {genreTitle}
         </h2>
@@ -46,9 +54,11 @@ function Discover() {
         {/*   })} */}
         {/* </select> */}
       </div>
-      <div className="flex flex-wrap sm:justify-start justify-center gap-8">
+      <div className="sm:justify-start justify-center gap-8">
+      <Slider {...settings}>
         {topCharts.map((song, i) => {
           return (
+            
             <SongCard
               key={song.key}
               isPlaying={isPlaying}
@@ -57,9 +67,11 @@ function Discover() {
               song={song}
               i={i}
             ></SongCard>
+           
           );
-          // return <div>Hello</div>;
+          {/* return <div>Hello</div>; */}
         })}
+        </Slider>
       </div>
     </div>
   );
