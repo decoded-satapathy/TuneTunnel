@@ -5,7 +5,9 @@ import { Loader, Error, SongCard } from "../components";
 import { india } from "../assets/topCountrySongs";
 import { useGetSongsByCountryQuery } from "../redux/services/shazamCore";
 const geoipifyApiKey = import.meta.env.VITE_GEO_API_KEY;
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 const AroundYou = () => {
   const [country, setCountry] = useState("");
   const [loading, setLoading] = useState("");
@@ -22,13 +24,19 @@ const AroundYou = () => {
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   }, [country]);
-
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 7,
+    slidesToScroll: 5
+  };
   // if (isFetching && loading) return <Loader title="Loading songs around you" />;
   // if (error && country) return <Error></Error>
 
   return (
     <div className="flex flex-col">
-      <h2 className="flex flex-row justify-start items-center gap-3 font-bold text-3xl text-white text-left mt-4 mb-10">
+      <h2 className="flex flex-row justify-start items-center gap-3 font-bold text-3xl text-white text-left mb-10">
         Around You
         <div className="flex flex-row justify-start items-center gap-3">
           <div className="font-black ">({country})</div>
@@ -53,7 +61,8 @@ const AroundYou = () => {
           </svg>
         </div>
       </h2>
-      <div className="flex flex-wrap sm:justify-start justify-center gap-8">
+      <div className="sm:justify-start justify-center gap-8 text-white">
+      <Slider {...settings}>
         {india?.map((song, i) => {
           return (
             <SongCard
@@ -65,6 +74,7 @@ const AroundYou = () => {
             ></SongCard>
           );
         })}
+        </Slider>
       </div>
     </div>
   );
