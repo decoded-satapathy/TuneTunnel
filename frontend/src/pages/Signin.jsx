@@ -1,3 +1,4 @@
+
 import { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { BACKEND_URL } from "../../config";
@@ -6,7 +7,7 @@ import { useDispatch } from "react-redux";
 import Preloader from "../assets/Logos/svg/preloader_ripples.svg";
 import "./Login.css"
 export function SignIn() {
-  const handleSlide1 = () => {
+  const handleSwitch1 = () => {
     document.querySelector(".loginMsg").classList.toggle("visibility");
     document.querySelector(".frontbox").classList.add("moving");
     document.querySelector(".signupMsg").classList.toggle("visibility");
@@ -14,7 +15,7 @@ export function SignIn() {
     document.querySelector(".login").classList.toggle("hide");
   };
 
-  const handleSlide2 = () => {
+  const handleSwitch2 = () => {
     document.querySelector(".loginMsg").classList.toggle("visibility");
     document.querySelector(".frontbox").classList.remove("moving");
     document.querySelector(".signupMsg").classList.toggle("visibility");
@@ -113,15 +114,7 @@ export function SignIn() {
       alert("An error occurred. Please try again.");
     }
   };
-  // const handleSwitch1 = () => {
-  //   document.querySelector(".login").classList.add("hide");
-  //   document.querySelector(".signup").classList.remove("hide");
-  // };
 
-  // const handleSwitch2 = () => {
-  //   document.querySelector(".login").classList.remove("hide");
-  //   document.querySelector(".signup").classList.add("hide");
-  // };
 
   return (
     <div className="background1">
@@ -129,7 +122,7 @@ export function SignIn() {
       <div className="container">
         <div className="backbox">
           <div className="loginMsg">
-            <div className="textcontent" onClick={handleSlide1} id="switch1">
+            <div className="textcontent" onClick={handleSwitch1} id="switch1">
               <p className="title">Don't Have an account?</p>
               <Link to="/signup">
                 <button>Sign Up</button>
@@ -137,7 +130,7 @@ export function SignIn() {
             </div>
           </div>
           <div className="signupMsg visibility">
-            <div className="textcontent" onClick={handleSlide2} id="switch2">
+            <div className="textcontent" onClick={handleSwitch2} id="switch2">
               <p className="title">Have an account?</p>
               <Link to="/signin">
                 <button>Log In</button>
@@ -202,4 +195,5 @@ const Loader = () => (
     <img className='w-40 h-40' src={Preloader} alt="Loading..." />
   </div>
 );
+
 
