@@ -4,7 +4,7 @@ import { FiSearch } from "react-icons/fi"
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, login } from "../redux/features/userSlice";
 import { logo } from "../assets";
-// import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import {All_API} from "..//../apis"
 import axios from "axios";
 import SearchSong from "./SearchSong";
@@ -15,9 +15,13 @@ const Searchbar = () => {
   const name = useSelector((state) => state.user.name);
   const dispatch = useDispatch();
   const [inputSong, setInputSong] = useState("");
-
+  const [show,setShow]= useState(false);
+  function searchPage(data){
+    navigate("/search", {state: {data}})
+  }
   async function searchSong() {
-    if (!inputSong) return; 
+    if (!inputSong) return; // Prevent search if input is empty
+
     const encodedName = encodeURIComponent(inputSong);
     const fullAPI = All_API.search + encodedName;
 
@@ -28,24 +32,27 @@ const Searchbar = () => {
       }
       let data = await res.json();
       console.log(data);
-      <SearchSong data = {data}/>
-      
+      searchPage(data); 
+      setShow(true);
     } catch (error) {
       console.error("Error fetching the song data:", error);
     }
-    
+  }
+  function submitForm(e){
+    e.preventDefault();
+    searchSong();
   }
   return (
-    < form autoComplete="off" className="p-2 text-gray-400 focus-within:text-gray-600" >
+    <form onSubmit={submitForm} autoComplete="off" className="p-2 text-gray-400 focus-within:text-gray-600" >
       
       <div className="flex flex-row justify-between items-center">
 
        <Link to={"/"}>
        <img src={logo} alt="logo" className="w-[170px] h-32 object-contain"></img>
        </Link>
-       
-        <div className='flex w-[50%] bg-red-600 rounded-[20px]'>
-        <Link to={"./search"}>
+       <div className="w-[50%]">
+        <div onSubmit={searchSong} className='flex w-[100%] bg-red-600 rounded-[20px]'>
+        
         <input
           name="search-field"
           autoComplete="off"
@@ -58,8 +65,15 @@ const Searchbar = () => {
         
         <FiSearch onClick={searchSong}  size={20} className="h-5 ml-2 mr-4 mt-[0.6rem] text-lg text-white">
         </FiSearch>
-        </Link>
+        
+      
         </div>
+        <div className="mt-3 text-white text-xl ml-3">
+          {
+            inputSong && show ?<h1>Results for: {inputSong} </h1>:""
+          }
+        </div>
+       </div>
         
         {isLoggedIn ? (
           <div className="flex justify-center items-center">
@@ -83,7 +97,7 @@ const Searchbar = () => {
             }}>Log In</button>
         }
       </div>
-    </form >
+    </form>
   )
 };
 

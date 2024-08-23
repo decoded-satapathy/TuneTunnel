@@ -27,14 +27,14 @@ const NonAuthPage = () => {
       </div>
       <div className='flex flex-col ml-[7rem]' >
     
-        <div className="max-h-[25rem] mr-7 mb-4 px-3 pb-2">
+        <div className="max-h-[25rem] mr-7 mb-4 px-3 pb-2 ">
         
            
             <Routes>
                 <Route path="/" element={<Discover />} />
                 <Route path="/top-charts" element={<TopCharts />} />
-                <Route path="/around-you" element={<AroundYou />} />
-                <Route path="/artists/:id" element={<ArtistDetails />} />
+                <Route path="/artist" element={<AroundYou />} />
+                <Route path="/artists/:id" element={<ArtistDetails />} />                          
                 <Route path="/songs/:songid" element={<SongDetails />} />
                 <Route path="/search" element={<SearchSong />} />
             </Routes>
