@@ -4,10 +4,10 @@ import './Nonauth.css';
 import { Searchbar, Sidebar, MusicPlayer, TopPlay, AudioPlayer } from '../components/index';
 import { ArtistDetails, TopArtists, AroundYou, Discover, Search, SongDetails, TopCharts } from './';
 import { useState } from 'react';
-useState
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import SearchSong from '../components/SearchSong';
 const NonAuthPage = () => {
   const { activeSong } = useSelector((state) => state.player);
 
@@ -36,7 +36,7 @@ const NonAuthPage = () => {
                 <Route path="/around-you" element={<AroundYou />} />
                 <Route path="/artists/:id" element={<ArtistDetails />} />
                 <Route path="/songs/:songid" element={<SongDetails />} />
-                <Route path="/search/:searchTerm" element={<Search />} />
+                <Route path="/search" element={<SearchSong />} />
             </Routes>
             
         </div>
