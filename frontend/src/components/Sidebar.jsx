@@ -15,8 +15,8 @@ export default function Sidebar() {
         <Link to={"/top-charts"} className='mt-6 -ml-[21rem]'>
           <li className='hover:text-red-600'>Top Charts</li>
         </Link>
-        <Link to={"/around-you"}>
-          <li className='mt-6 hover:text-red-600'>Around You</li>
+        <Link to={"/artist"}>
+        <li className='mt-6 hover:text-red-600'>Artists</li>
         </Link>
         <Link to={"/"}>
           <li className='mt-6 hover:text-red-600 '>Discover</li>
