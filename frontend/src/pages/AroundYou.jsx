@@ -20,7 +20,7 @@ function AroundYou() {
         const fetchedDetails = [];
         
         for (const artistId of Object.values(artists)) {
-          const fullUrl = All_API.artist+artistId;
+          const fullUrl = All_API.artist+"/"+artistId;
           console.log(fullUrl)
           const response = await fetch(fullUrl);
           const data = await response.json();
