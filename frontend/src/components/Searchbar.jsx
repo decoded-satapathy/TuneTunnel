@@ -42,16 +42,24 @@ const Searchbar = () => {
     e.preventDefault();
     searchSong();
   }
+  useEffect(() => {
+    if (!inputSong || !show) {
+      navigate("/");
+      // setInputSong("");
+      setShow(false)
+    }
+  }, [inputSong, show, navigate]);
+
   return (
     <form onSubmit={submitForm} autoComplete="off" className="p-2 text-gray-400 focus-within:text-gray-600" >
       
-      <div className="flex flex-row justify-between items-center">
+      <div className="relative flex flex-row justify-between items-center">
 
        <Link to={"/"}>
        <img src={logo} alt="logo" className="w-[170px] h-32 object-contain"></img>
        </Link>
        <div className="w-[50%]">
-        <div onSubmit={searchSong} className='flex w-[100%] bg-red-600 rounded-[20px]'>
+        <div onSubmit={submitForm} className='absolute top-5 flex w-[50%] bg-red-600 rounded-[20px]'>
         
         <input
           name="search-field"
@@ -63,14 +71,14 @@ const Searchbar = () => {
           className="lex-1 bg-black border-none outline-none placeholder-gray-500 text-base text-white p-2 rounded-[20px] pl-10 w-[95%] ml-1"
         ></input>
         
-        <FiSearch onClick={searchSong}  size={20} className="h-5 ml-2 mr-4 mt-[0.6rem] text-lg text-white">
+        <FiSearch onClick={submitForm}  size={20} className="h-5 ml-2 mr-4 mt-[0.6rem] text-lg text-white">
         </FiSearch>
         
       
         </div>
-        <div className="mt-3 text-white text-xl ml-3">
+        <div className="mt-8 text-white text-xl ml-3 mt-2">
           {
-            inputSong && show ?<h1>Results for: {inputSong} </h1>:""
+            inputSong && show ?<h1>Results for : {inputSong} </h1>:null
           }
         </div>
        </div>

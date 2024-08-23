@@ -35,9 +35,11 @@ export function FullScreenSong() {
   console.log("lyrics");
   console.log(lyrics);
 
-  return <div className="h-full flex flex-row items-center justify-center gap-10">
+  return <div className="h-full flex flex-row items-center justify-center gap-10 mt-16">
     <HighDefThumbnail videoId={data.videoId}></HighDefThumbnail>
-    <div className="flex flex-col justify-center items-center max-h-72 w-[50rem] overflow-y-scroll text-center text-2xl rounded-lg border-gray border-2 hide-scrollbar pt-10">
+    <div className="flex flex-col justify-center items-center max-h-72 w-[50rem] overflow-y-scroll text-center text-2xl rounded-lg border-gray border-2 hide-scrollbar pt-60">
+    
+    <div className="min-h-[42rem] min-w-5 ">...</div>
       {lyricsArray.map((lyric) => {
         return <div className="text-white w-full">{lyric}</div>;
       })}
@@ -59,7 +61,7 @@ async function fetchLyrics(data) {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'http://localhost:3001/api/v1/lyrics/',
+    url: All_API.lyrics,
     headers: {
       'Content-Type': 'application/json'
     },

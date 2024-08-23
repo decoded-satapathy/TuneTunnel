@@ -26,7 +26,7 @@ function Discover() {
   const [isFetching, setIsFetching] = useState(true);
   setTimeout(() => {
     setIsFetching(false);
-  }, 2000)
+  }, 1000)
   const error = false;
   if (isFetching) return <Loader title="Loading songs...."></Loader>;
 

@@ -49,13 +49,13 @@
     right:19rem;
     margin-right: 3%;
     margin-left: 3%;
-    transition: right .8s ease-in-out;
+    transition: all .8s ease-in-out;
     z-index: 100;
   }
   
   
   .moving{
-    right:45%;
+    right:30%;
   }
   .loginMsg{
     width: 40%;

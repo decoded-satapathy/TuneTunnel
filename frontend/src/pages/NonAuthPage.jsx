@@ -35,14 +35,15 @@ const NonAuthPage = () => {
     slidesToScroll: 3,
   };
   return (
-    <div className="relative flex flex-col w-screen h-screen bg-gradient-to-b from-[#9a0f0f] to-[#2e0101] overflow-y-scroll ">
+    <div className="relative flex flex-col w-screen h-screen bg-gradient-to-b from-[#9a0f0f] to-[#2e0101] overflow-y-scroll hide-scrollbar">
       {/* <AudioPlayer /> */}
       <Sidebar />
       <div>
         <Searchbar />
       </div>
       <div className="flex flex-col ml-[7rem]">
-        <div className="max-h-[25rem] mr-7 mb-4 px-3 pb-2">
+        <div className="max-h-[25rem] mr-7 mb-4 px-3 pb-2
+         hide-scrollbar">
           <Routes>
             <Route path="/" element={<Discover />} />
             <Route path="/top-charts" element={<TopCharts />} />
@@ -82,9 +83,10 @@ const NonAuthPage = () => {
         </div> */}
 
       {activeSong?.title && (
-        <div className="absolute h-24 bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/50 to-[#05050c] backdrop-blur-sm rounded-t-3xl z-10 w-[70%] mx-auto">
+        <div className="h-24 fixed bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/50 to-[#05050c] backdrop-blur-sm rounded-t-3xl z-10 w-[70%] mx-auto text-red-700">
           <MusicPlayer />
         </div>
+
       )}
     </div>
   );
