@@ -9,23 +9,23 @@ function toCapitalCase(str) {
     .join(' ');
 }
 
-const SongBar = ({ song, i, hitSongDetails, isPlaying, activeSong, handlePauseClick, handlePlayClick }) => (
+const SongBar = ({ song, i, songDetails, isPlaying, activeSong, handlePauseClick, handlePlayClick }) => (
   <div className={`w-full flex flex-row items-center hover:bg-[#4c426e]  py-2 p-4 rounded-lg cursor-pointer mb-2`}>
     <h3 className="font-bold text-base text-white mr-3">{i + 1}.</h3>
     <div className="flex-1 flex flex-row justify-between items-center">
       <img
         className="w-20 h-20 rounded-lg"
-        src={hitSongDetails?.images?.play}
-        alt={hitSongDetails?.heading.title}
+        src={songDetails?.thumbnails[0].url}
+        alt={songDetails?.name}
       />
       <div className="flex-1 flex flex-col justify-center mx-3">
-        <a href={`https://www.google.com/search?q=${hitSongDetails?.heading?.title}+by+${hitSongDetails.heading.subtitle}+lyrics`} target="_blank">
+        <a href={`https://www.google.com/search?q=${songDetails?.name}+by+${songDetails?.artist.name}+lyrics`} target="_blank">
           <p className='text-white text-2xl '>
-            {toCapitalCase(hitSongDetails.heading.title)}
+            {toCapitalCase(songDetails?.name)}
           </p>
         </a>
         <p className='text-gray-300 text-base '>
-          {hitSongDetails.heading.subtitle}
+          {songDetails.artist.name}
         </p>
       </div>
     </div>
