@@ -59,9 +59,9 @@ export const FullScreenArtist = () => {
   console.log(artistDetails);
 
   return (
-    <div className="flex flex-col mt-10 hidescrollbar">
+    <div className="flex flex-col hidescrollbar">
       <DetailsHeader artistInfo={artistDetails}></DetailsHeader>
-      <div className="grid grid-rows-2 md:grid-cols-2 max-h-[44rem] md:gap-32">
+      <div className="grid grid-rows-2 md:grid-cols-2 max-h-[44rem] md:gap-32 mb-10">
         <div className="mb-10 row-span-1 sm:col-span-1">
           <div className="mt-5">
             <div className='text-3xl font-bold text-white my-10'>Top Songs:</div>

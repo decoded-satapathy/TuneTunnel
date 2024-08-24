@@ -3,14 +3,21 @@ import React from 'react';
 //
 // import PlayPause from './PlayPause';
 // import { HiTag } from 'react-icons/hi';
+import {useNavigate} from "react-router-dom";
 function toCapitalCase(str) {
   return str.split(' ')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(' ');
 }
 
-const ArtistBar = ({ albumDetails, i }) => (
-  <div className={"w-full flex flex-row items-center hover:bg-[#4c426e]  py-2 p-4 rounded-lg cursor-pointer mb-2"}>
+
+const ArtistBar = ({ albumDetails, i }) => {
+  const navigate = useNavigate();
+  function albumHandler(albumId){
+    navigate('/specific-album',{state:{albumId}});
+  }
+  return (
+  <div onClick={() => {albumHandler(albumDetails.albumId)} } className="w-full flex flex-row items-center hover:bg-[#4c426e]  py-2 p-4 rounded-lg cursor-pointer mb-2" >
     <h3 className="font-bold text-base text-white mr-3">{i + 1}.</h3>
     <div className="flex-1 flex flex-row justify-between items-center">
       <img
@@ -29,6 +36,6 @@ const ArtistBar = ({ albumDetails, i }) => (
     </div>
     
   </div>
-);
+)};
 
 export default ArtistBar;

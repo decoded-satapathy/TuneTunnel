@@ -2,20 +2,20 @@ import { Loader, DiscoverSongCard } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setAlbumId } from "../redux/features/albumSlice";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-
 function Discover() {
   const [topCharts, setTopCharts] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const dispatch = useDispatch();
   const { activeSong, isPlaying, genreListId } = useSelector((state) => state.player);
   const genreTitle = genreListId;
-
+  const navigate = useNavigate();
   const albumStateHandle = (albumId) => {
-    dispatch(setAlbumId(albumId));
+    // dispatch(setAlbumId(albumId));
+    navigate("/specific-album",{state:{albumId}});
   };
   const [filterData, setfilterData] = useState([]);
 
@@ -83,9 +83,9 @@ function Discover() {
       <div className="sm:justify-start justify-center gap-8">
         <Slider {...settings}>
           {topCharts.map((song, i) => (
-            <Link 
+            <div 
               key={i} 
-              to={`/album/${song.albumId}`}
+              // to={`/album/${song.albumId}`}
               onClick={() => albumStateHandle(song.albumId)} 
             >
               <DiscoverSongCard
@@ -95,7 +95,7 @@ function Discover() {
                 song={song}
                 i={i}
               />
-            </Link>
+            </div>
           ))}
         </Slider>
       </div>

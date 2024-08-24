@@ -8,8 +8,8 @@ import axios from "axios";
 
 export const FullScreenAlbum = () => {
   const location = useLocation();
-  // const { albumId } = location.state || {};
-  const albumId = "MPREb_E4GfUXfDfhy";
+  const { albumId } = location.state || {};
+  // const albumId = "MPREb_E4GfUXfDfhy";
   const { activeSong, isPlaying } = useSelector((state) => state.player);
 
   // const { data } = location.state || {};
@@ -58,11 +58,11 @@ export const FullScreenAlbum = () => {
 
 
   return (
-    <div className="flex flex-col mt-10 hidescrollbar ">
+    <div className="flex flex-col hidescrollbar ">
       <DetailsHeader artistInfo={albumDetails}></DetailsHeader>
-      <div className="mb-10 row-span-1 sm:col-span-1 w-[70rem] mx-auto max-h-[32rem] overflow-y-auto hide-scrollbar mt-8 ">
-        <div className="mt-5">
-          <div className='text-3xl font-bold text-white my-10'>Songs:</div>
+      <div className="mb-10 row-span-1 sm:col-span-1 w-[70rem] mx-auto max-h-[19rem] overflow-y-auto hide-scrollbar mt-8 ">
+        <div className="pb-24">
+          <div className='text-3xl font-bold text-white mb-5'>Songs:</div>
           {albumDetails.songs.map((song, i) => {
             return <SongBar songDetails={song} activeSong={activeSong} isPlaying={isPlaying} i={i}></SongBar>
           })}
