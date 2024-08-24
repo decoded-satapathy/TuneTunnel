@@ -16,15 +16,15 @@ const playerSlice = createSlice({
     setActiveSong: (state, action) => {
       state.activeSong = action.payload.song;
 
-      if (action.payload?.data?.tracks?.hits) {
-        state.currentSongs = action.payload.data.tracks.hits;
-      } else if (action.payload?.data?.properties) {
-        state.currentSongs = action.payload?.data?.tracks;
-      } else {
-        state.currentSongs = action.payload.data;
-      }
+      // if (action.payload?.data?.tracks?.hits) {
+      //   state.currentSongs = action.payload.data.tracks.hits;
+      // } else if (action.payload?.data?.properties) {
+      //   state.currentSongs = action.payload?.data?.tracks;
+      // } else {
+      //   state.currentSongs = action.payload.data;
+      // }
 
-      state.currentIndex = action.payload.i;
+      // state.currentIndex = action.payload.i;
       state.isActive = true;
     },
 

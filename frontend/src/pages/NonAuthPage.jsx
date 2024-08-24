@@ -89,7 +89,6 @@ const NonAuthPage = () => {
 
       )}
     </div>
-  );
+  )
 };
-
 export default NonAuthPage;
