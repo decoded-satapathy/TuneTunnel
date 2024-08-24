@@ -10,16 +10,16 @@ function AroundYou() {
   const [loading, setLoading] = useState(true); // Manage loading state
 
   const artists = {
-    ar_rahman: 'UCtJe0RYzgPddQXKtWduxz_w',
+    // ar_rahman: 'UCtJe0RYzgPddQXKtWduxz_w',
     arijit_singh: 'UCDxKh1gFWeYsqePvgVzmPoQ',
     honey_singh: 'UCGPCYz1FTl_dvFFnzQTQzjw',
-    shreya_ghosal: 'UCrC-7fsdTCYeaRBpwA6j-Eg',
+    // shreya_ghosal: 'UCrC-7fsdTCYeaRBpwA6j-Eg',
     atif_aslam: 'UCVGomUS__PL0c4jDXa0QwXA',
     kk: 'UCeBxx7m7yrwSyvpVpKcMI8w',
     UDIT_NARAYAN:"UC13ToEQgfmTe8_GW19LYtCg",
-    Neha_Kakkar:"UCsmm-jjSLILh12mZ2aR6Qrg",
+    // Neha_Kakkar:"UCsmm-jjSLILh12mZ2aR6Qrg",
     Karan_Aujla: "UCSmK5WX5U4gdtebWjoL81og",
-    Sonu_Nigam:"UCsC4u-BJAd4OX1hJXtwXSOQ"
+    // Sonu_Nigam:"UCsC4u-BJAd4OX1hJXtwXSOQ"
   };
 
   useEffect(() => {
