@@ -59,7 +59,7 @@ export const FullScreenAlbum = () => {
   return (
     <div className="flex flex-col mt-10 hidescrollbar ">
       <DetailsHeader artistInfo={albumDetails}></DetailsHeader>
-      <div className="mb-10 row-span-1 sm:col-span-1 w-[70rem] mx-auto max-h-[32rem] overflow-y-auto hide-scrollbar mt-2 bg-blue-500">
+      <div className="mb-10 row-span-1 sm:col-span-1 w-[70rem] mx-auto max-h-[32rem] overflow-y-auto hide-scrollbar mt-8 ">
         <div className="mt-5">
           <div className='text-3xl font-bold text-white my-10'>Songs:</div>
           {albumDetails.songs.map((song, i) => {
