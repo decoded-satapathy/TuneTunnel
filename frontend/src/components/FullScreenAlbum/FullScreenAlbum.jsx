@@ -2,29 +2,29 @@ import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { DetailsHeader, Error, Loader } from "../"
-import { BesonBoone } from "../../assets/artistDetails"
 import { SongBar } from "../index"
 import { All_API } from "../../../apis";
 import axios from "axios";
-import ArtistBar from "./ArtistBar";
 
-export const FullScreenArtist = () => {
+export const FullScreenAlbum = () => {
   const location = useLocation();
-  const { artistId } = location.state || {};
+  // const { albumId } = location.state || {};
+  const albumId = "MPREb_E4GfUXfDfhy";
+  const { activeSong, isPlaying } = useSelector((state) => state.player);
 
   // const { data } = location.state || {};
   // const { data } = location.state() || {};
   const [isLoading, setIsLoading] = useState(true); // Initially true because we're fetching data
-  const [artistDetails, setArtistDetails] = useState({});
+  const [albumDetails, setAlbumDetails] = useState({});
 
   useEffect(() => {
-    const fetchArtistDetails = async () => {
-      const finalApi = All_API.artist + artistId;
+    const fetchAlbumDetails = async () => {
+      const finalApi = All_API.album + albumId;
       try {
         const response = await fetch(finalApi);
         const jsonRes = await response.json();
         console.log(JSON.stringify(jsonRes));
-        setArtistDetails(jsonRes);
+        setAlbumDetails(jsonRes);
       } catch (e) {
         console.log(e);
       } finally {
@@ -32,14 +32,14 @@ export const FullScreenArtist = () => {
       }
     };
 
-    fetchArtistDetails();
+    fetchAlbumDetails();
   }, []); // Empty dependency array means this effect runs once after the initial render
 
   if (isLoading) {
-    return <Loader title="Fetching artist details" />;
+    return <Loader title="Fetching album details" />;
   }
   // console.log(`${All_API.artist}/UCDxKh1gFWeYsqePvgVzmPoQ`);
-  // TODO: if need to see the component real quick uncomment the following
+  // TODO: if nrtisteed to see the component real quick uncomment the following
   // return (
   //   <div className="flex flex-col mt-10 hidescrollbar">
   //     <DetailsHeader artistInfo={BesonBoone}></DetailsHeader>
@@ -56,27 +56,16 @@ export const FullScreenArtist = () => {
   //   </div>
   // )
 
-  console.log(artistDetails);
 
   return (
-    <div className="flex flex-col mt-10 hidescrollbar">
-      <DetailsHeader artistInfo={artistDetails}></DetailsHeader>
-      <div className="grid grid-rows-2 md:grid-cols-2 max-h-[44rem] md:gap-32">
-        <div className="mb-10 row-span-1 sm:col-span-1">
-          <div className="mt-5">
-            <div className='text-3xl font-bold text-white my-10'>Top Songs:</div>
-            {artistDetails.topSongs.map((song, i) => {
-              return <SongBar songDetails={song} i={i}></SongBar>
-            })}
-          </div>
-        </div>
-        <div className="row-span-1 sm:col-span-1">
-          <div className="mt-5">
-            <div className='text-3xl font-bold text-white my-10'>Top Albums:</div>
-            {artistDetails.topAlbums.slice(0, 5).map((album, i) => {
-              return <ArtistBar albumDetails={album} i={i}></ArtistBar>
-            })}
-          </div>
+    <div className="flex flex-col mt-10 hidescrollbar ">
+      <DetailsHeader artistInfo={albumDetails}></DetailsHeader>
+      <div className="mb-10 row-span-1 sm:col-span-1 w-[70rem] mx-auto max-h-[32rem] overflow-y-auto hide-scrollbar mt-8 ">
+        <div className="mt-5">
+          <div className='text-3xl font-bold text-white my-10'>Songs:</div>
+          {albumDetails.songs.map((song, i) => {
+            return <SongBar songDetails={song} activeSong={activeSong} isPlaying={isPlaying} i={i}></SongBar>
+          })}
         </div>
       </div>
     </div>
