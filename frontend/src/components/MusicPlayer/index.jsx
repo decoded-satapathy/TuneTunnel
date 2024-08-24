@@ -88,7 +88,10 @@ const MusicPlayer = () => {
           onLoadedData={(event) => setDuration(event.target.duration)}
         />
       </div>
-      <VolumeBar value={volume} min="0" max="1" onChange={(event) => setVolume(event.target.value)} setVolume={setVolume} />
+      <VolumeBar value={volume} min="0" max="1" onChange={(event) =>
+        setVolume(event.target.value)
+      }
+        setVolume={setVolume} />
     </div>
   );
 };
