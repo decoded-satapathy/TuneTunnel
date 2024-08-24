@@ -24,7 +24,8 @@ const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate
 
   return (
     <audio
-      src={activeSong.ringtone}
+      // src={activeSong.ringtone}
+      src="http://localhost:3001/api/v1/stream?videoId=XxxfQ7-aMrE"
       ref={ref}
       loop={repeat}
       onEnded={onEnded}
