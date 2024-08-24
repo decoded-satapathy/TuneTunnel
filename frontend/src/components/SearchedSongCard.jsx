@@ -30,7 +30,7 @@ function SearchedSongCard({ artistId, song, isPlaying, activeSong, data, i }) {
             <div className='h-[60px] w-[1000px] object-contain relative flex gap-3'>
                 <img src={song.thumbnails[0].url} className='rounded-lg z-1'></img>               
                 <div className='flex flex-col'>
-                <h2 className='font-bold text-lg mb-1' >{song.album.name}</h2>
+                <h2 className='font-bold text-lg mb-1' >{song.name || ""}</h2>
                 <p onClick={nameHandler} className='underline text-sm mb-1' >{song.artist.name}</p>
                 </div>
             </div>
