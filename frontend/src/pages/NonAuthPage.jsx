@@ -24,6 +24,7 @@ import Slider from "react-slick";
 import SearchSong from "../components/SearchSong";
 import { FullScreenSong } from "../components/FullScreenSong/FullScreenSong";
 import { FullScreenArtist } from "../components/FullScreenArtist/FullScreenArtist";
+import { FullScreenAlbum } from "../components/FullScreenAlbum/FullScreenAlbum";
 const NonAuthPage = () => {
   const { activeSong } = useSelector((state) => state.player);
 
@@ -60,6 +61,7 @@ const NonAuthPage = () => {
                 </div>
               }
             />
+            <Route path='/specific-album' element={<FullScreenAlbum />} />
           </Routes>
         </div>
         {/* <div className='h-[calc(100vh-72px)]  overflow-y-scroll hide-scrollbar lex xl:flex-row flex-col-reverse'>
