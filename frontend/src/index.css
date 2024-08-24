@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 /* Active Navigation Link */
-.active {
-  @apply text-cyan-500;
-}
+/* .active1 {
+  @apply text-green-500;
+} */
 
 .active svg {
   @apply text-cyan-500;

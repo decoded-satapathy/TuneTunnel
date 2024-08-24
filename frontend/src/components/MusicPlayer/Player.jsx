@@ -36,6 +36,7 @@ const Player = ({
       // src={activeSong.ringtone}
       src={`http://localhost:3001/api/v1/stream?videoId=${activeSong.videoId}`}
       // src="http://localhost:3001/api/v1/stream?videoId=XxxfQ7-aMrE"
+
       ref={ref}
       loop={repeat}
       onEnded={onEnded}

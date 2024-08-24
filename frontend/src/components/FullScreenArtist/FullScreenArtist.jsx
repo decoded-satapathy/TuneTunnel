@@ -10,14 +10,18 @@ import ArtistBar from "./ArtistBar";
 
 export const FullScreenArtist = () => {
   const location = useLocation();
+  const { artistId } = location.state || {};
+  
+    // const { data } = location.state || {};
   // const { data } = location.state() || {};
   const [isLoading, setIsLoading] = useState(true); // Initially true because we're fetching data
   const [artistDetails, setArtistDetails] = useState({});
 
   useEffect(() => {
     const fetchArtistDetails = async () => {
+      const finalApi = All_API.artist+artistId;
       try {
-        const response = await fetch(`http://localhost:3001/api/v1/search/artist/UCDxKh1gFWeYsqePvgVzmPoQ`);
+        const response = await fetch(finalApi);
         const jsonRes = await response.json();
         console.log(JSON.stringify(jsonRes));
         setArtistDetails(jsonRes);
@@ -34,7 +38,7 @@ export const FullScreenArtist = () => {
   if (isLoading) {
     return <Loader title="Fetching artist details" />;
   }
-  console.log(`${All_API.artist}/UCDxKh1gFWeYsqePvgVzmPoQ`);
+  // console.log(`${All_API.artist}/UCDxKh1gFWeYsqePvgVzmPoQ`);
   // TODO: if need to see the component real quick uncomment the following
   // return (
   //   <div className="flex flex-col mt-10 hidescrollbar">
@@ -57,7 +61,7 @@ export const FullScreenArtist = () => {
   return (
     <div className="flex flex-col mt-10 hidescrollbar">
       <DetailsHeader artistInfo={artistDetails}></DetailsHeader>
-      <div className="grid grid-rows-2 md:grid-cols-2">
+      <div className="grid grid-rows-2 md:grid-cols-2 max-h-[44rem]">
         <div className="mb-10 row-span-1 sm:col-span-1">
           <div className="mt-5">
             <div className='text-3xl font-bold text-white my-10'>Top Songs:</div>
