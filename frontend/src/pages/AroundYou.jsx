@@ -50,7 +50,7 @@ function AroundYou() {
   }
 
   return (
-    <div className="grid grid-cols-5 gap-4 overflow-y-scroll hide-scrollbar pb-5">
+    <div className="grid grid-cols-4 gap-4 overflow-y-scroll hide-scrollbar pb-24 w-[80%] mx-auto">
       {loading ? (
         <Loader />
       ) : artistDetails.length > 0 ? (

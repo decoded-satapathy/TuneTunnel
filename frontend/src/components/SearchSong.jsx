@@ -11,8 +11,8 @@ function SearchSong() {
   // console.log(isPlaying);
   return (
 
-    <div className='h-[70vh] w-[50%] ml-[19rem] rounded-xl' >
-      <div className='  flex flex-col justify-start h-full w-full text-white overflow-y-auto hide-scrollbar py-5'>
+    <div className='h-[70vh] w-[70%] mx-auto -mt-6 rounded-xl' >
+      <div className='  flex flex-col justify-start h-full w-full text-white overflow-auto hide-scrollbar py-5'>
 
         {data.map((song, index) => {
           return (
