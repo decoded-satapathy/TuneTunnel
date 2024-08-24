@@ -82,7 +82,7 @@ const NonAuthPage = () => {
           </div>
         </div> */}
 
-      {activeSong?.title && (
+      {activeSong?.name && (
         <div className="h-24 fixed bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/50 to-[#05050c] backdrop-blur-sm rounded-t-3xl z-10 w-[70%] mx-auto text-red-700">
           <MusicPlayer />
         </div>
