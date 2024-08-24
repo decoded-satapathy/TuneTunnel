@@ -26,10 +26,16 @@ function SearchedSongCard({ artistId, song, isPlaying, activeSong, data, i }) {
   }
   return (
 
-        <div className='flex gap-5 mb-5 justify-start mx-8 backdrop-blur-xl hover:bg-[#4c426e] hover:backdrop-blur-lg py-2 px-3 rounded-lg cursor-pointer hover:text-red-400 w-[90%]'>
-            <div className='h-[60px] w-[60px] object-contain relative '>
-                <img src={song.thumbnails[0].url} className='rounded-full absolute z-1'></img>
-                <div className='z-100 absolute top-3 left-3'>
+        <div className='flex justify-between gap-5 mb-5 justify-start mx-8 backdrop-blur-xl hover:bg-[#4c426e] hover:backdrop-blur-lg py-2 px-3 rounded-lg cursor-pointer hover:text-red-400 w-[90%]'>
+            <div className='h-[60px] w-[1000px] object-contain relative flex gap-3'>
+                <img src={song.thumbnails[0].url} className='rounded-lg z-1'></img>               
+                <div className='flex flex-col'>
+                <h2 className='font-bold text-lg mb-1' >{song.album.name}</h2>
+                <p onClick={nameHandler} className='underline text-sm mb-1' >{song.artist.name}</p>
+                </div>
+            </div>
+
+            <div className='z-100 mt-3'>
                   <PlayPause
                   isPlaying={isPlaying}
                   activeSong={activeSong}
@@ -38,12 +44,6 @@ function SearchedSongCard({ artistId, song, isPlaying, activeSong, data, i }) {
                   handlePlay={handlePlayClick}
                   />
                 </div>
-                
-            </div>
-            <div className=''>
-                <h2 className='font-bold text-lg mb-1' >{song.album.name}</h2>
-                <p onClick={nameHandler} className='underline text-sm mb-1' >{song.artist.name}</p>
-            </div>
         </div>
   )
 }
