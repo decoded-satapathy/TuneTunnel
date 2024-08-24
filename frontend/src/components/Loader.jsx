@@ -1,7 +1,7 @@
 import { loadiermotion } from "../assets";
 export default function Loader({ title }) {
   return (
-    <div className="flex flex-col justify-center items-center w-full h-full">
+    <div className="flex flex-col justify-center items-center w-[90vw] h-full">
       <img
         src={loadiermotion}
         alt="loader"

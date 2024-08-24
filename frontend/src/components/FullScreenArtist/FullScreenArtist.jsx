@@ -12,6 +12,7 @@ export const FullScreenArtist = () => {
   const location = useLocation();
   const { artistId } = location.state || {};
   
+    // const { data } = location.state || {};
   // const { data } = location.state() || {};
   const [isLoading, setIsLoading] = useState(true); // Initially true because we're fetching data
   const [artistDetails, setArtistDetails] = useState({});

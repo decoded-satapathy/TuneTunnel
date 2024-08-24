@@ -13,7 +13,7 @@ function SearchSong() {
 
             {data.map((song,index) => {
                 return (
-                    <SearchedSongCard  key={index} song={song}/>
+                    <SearchedSongCard  key={index} song={song} artistId={song.artist.artistId}/>
                 )
             } )}
         </div>

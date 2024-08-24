@@ -16,7 +16,10 @@ function AroundYou() {
     shreya_ghosal: 'UCrC-7fsdTCYeaRBpwA6j-Eg',
     atif_aslam: 'UCVGomUS__PL0c4jDXa0QwXA',
     kk: 'UCeBxx7m7yrwSyvpVpKcMI8w',
-    UDIT_NARAYAN:"UC13ToEQgfmTe8_GW19LYtCg"
+    UDIT_NARAYAN:"UC13ToEQgfmTe8_GW19LYtCg",
+    Neha_Kakkar:"UCsmm-jjSLILh12mZ2aR6Qrg",
+    Karan_Aujla: "UCSmK5WX5U4gdtebWjoL81og",
+    Sonu_Nigam:"UCsC4u-BJAd4OX1hJXtwXSOQ"
   };
 
   useEffect(() => {
@@ -55,14 +58,14 @@ function AroundYou() {
           <div
             key={index}
             onClick={() => artistHandler(details.artistId)} // Pass the artistId to the handler
-            className="rounded-3xl bg-gradient-to-l from-gray-900 via-transparent to-gray-900 w-full h-full flex flex-row justify-space-between hover:text-red-400"
+            className="rounded-3xl bg-gradient-to-l from-gray-900 via-transparent to-gray-900 w-full h-full flex flex-row justify-space-between hover:text-red-400 cursor-pointer"
           >
             <div className="flex flex-col">
-              {details.thumbnails && details.thumbnails[1] ? (
+              {details.thumbnails && details.thumbnails[0] ? (
                 <img
                   src={details.thumbnails[1].url}
                   alt={details.name}
-                  className="rounded-full shadow-2xl shadow-gray-600 h-32 w-32 sm:h-48 sm:w-48 m-5 object-cover ml-10"
+                  className="rounded-full shadow-2xl shadow-gray-600 h-32 w-32 sm:h-48 sm:w-48 m-5 object-cover ml-10 "
                 />
               ) : (
                 <div className="h-32 w-32 sm:h-48 sm:w-48 m-5 bg-gray-800 rounded-full flex items-center justify-center">
