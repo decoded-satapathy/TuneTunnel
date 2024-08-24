@@ -2,13 +2,11 @@ import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { DetailsHeader, Error, Loader } from "../"
-import { BesonBoone } from "../../assets/artistDetails"
 import { SongBar } from "../index"
 import { All_API } from "../../../apis";
 import axios from "axios";
-import ArtistBar from "./ArtistBar";
 
-export const FullScreenArtist = () => {
+export const FullScreenAlbum = () => {
   const location = useLocation();
   const { artistId } = location.state || {};
 
@@ -39,7 +37,7 @@ export const FullScreenArtist = () => {
     return <Loader title="Fetching artist details" />;
   }
   // console.log(`${All_API.artist}/UCDxKh1gFWeYsqePvgVzmPoQ`);
-  // TODO: if need to see the component real quick uncomment the following
+  // TODO: if nrtisteed to see the component real quick uncomment the following
   // return (
   //   <div className="flex flex-col mt-10 hidescrollbar">
   //     <DetailsHeader artistInfo={BesonBoone}></DetailsHeader>
@@ -61,22 +59,12 @@ export const FullScreenArtist = () => {
   return (
     <div className="flex flex-col mt-10 hidescrollbar">
       <DetailsHeader artistInfo={artistDetails}></DetailsHeader>
-      <div className="grid grid-rows-2 md:grid-cols-2 max-h-[44rem] md:gap-32">
-        <div className="mb-10 row-span-1 sm:col-span-1">
-          <div className="mt-5">
-            <div className='text-3xl font-bold text-white my-10'>Top Songs:</div>
-            {artistDetails.topSongs.map((song, i) => {
-              return <SongBar songDetails={song} i={i}></SongBar>
-            })}
-          </div>
-        </div>
-        <div className="row-span-1 sm:col-span-1">
-          <div className="mt-5">
-            <div className='text-3xl font-bold text-white my-10'>Top Albums:</div>
-            {artistDetails.topAlbums.slice(0, 5).map((album, i) => {
-              return <ArtistBar albumDetails={album} i={i}></ArtistBar>
-            })}
-          </div>
+      <div className="mb-10 row-span-1 sm:col-span-1">
+        <div className="mt-5">
+          <div className='text-3xl font-bold text-white my-10'>Top Songs:</div>
+          {artistDetails.topSongs.map((song, i) => {
+            return <SongBar songDetails={song} i={i}></SongBar>
+          })}
         </div>
       </div>
     </div>
