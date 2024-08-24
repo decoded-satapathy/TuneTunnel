@@ -7,7 +7,7 @@ const Track = ({ isPlaying, isActive, activeSong }) => (
         } hidden sm:block h-16 w-16 mr-4`}
     >
       <img
-        src={activeSong?.photo_url}
+        src={activeSong?.thumbnails[0].url}
         alt="cover art"
         className="rounded-full"
       />
@@ -15,10 +15,10 @@ const Track = ({ isPlaying, isActive, activeSong }) => (
     <div className="flex flex-row text-white gap-5 items-center">
       <div className="max-w-[60%]">
         <p className="truncate text-white font-bold text-lg">
-          {activeSong?.title ? activeSong?.title : "No active Song"}
+          {activeSong?.name ? activeSong?.name : "No active Song"}
         </p>
         <p className="truncate text-gray-300">
-          {activeSong?.subtitle ? activeSong?.subtitle : "No active Song"}
+          {activeSong?.artist.name ? activeSong?.artist.name : "No active Song"}
         </p>
       </div>
       <a href={activeSong.ringtone} target="_blank">

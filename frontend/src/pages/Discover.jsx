@@ -55,22 +55,21 @@ function Discover() {
         {/* </select> */}
       </div>
       <div className="sm:justify-start justify-center gap-8">
-      <Slider {...settings}>
-        {topCharts.map((song, i) => {
-          return (
-            
-            <SongCard
-              key={song.key}
-              isPlaying={isPlaying}
-              activeSong={activeSong}
-              data={topCharts}
-              song={song}
-              i={i}
-            ></SongCard>
-           
-          );
-          {/* return <div>Hello</div>; */}
-        })}
+        <Slider {...settings}>
+          {topCharts.map((song, i) => {
+            return (
+              <SongCard
+                key={song.key}
+                isPlaying={isPlaying}
+                activeSong={activeSong}
+                data={topCharts}
+                song={song}
+                i={i}
+              ></SongCard>
+
+            );
+            {/* return <div>Hello</div>; */ }
+          })}
         </Slider>
       </div>
     </div>

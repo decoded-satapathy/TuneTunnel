@@ -66,18 +66,13 @@ const NonAuthPage = () => {
           </div>
         </div> */}
 
-
-      {activeSong?.title && (
+      {activeSong?.name && (
         <div className="absolute h-24 bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/50 to-[#05050c] backdrop-blur-sm rounded-t-3xl z-10 w-[70%] mx-auto">
           <MusicPlayer />
         </div>
-      )}
+      )};
+
     </div>
-  );
+  )
 };
-
 export default NonAuthPage;
-
-
-
-
