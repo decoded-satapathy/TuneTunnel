@@ -1,7 +1,6 @@
-import { Error as ErrorComponent, Loader, DiscoverSongCard, SongCard } from "../components";
+import { Loader, DiscoverSongCard } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { selectGenreListId } from "../redux/features/playerSlice.js";
 import { setAlbumId } from "../redux/features/albumSlice";
 import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
@@ -16,8 +15,9 @@ function Discover() {
   const genreTitle = genreListId;
 
   const albumStateHandle = (albumId) => {
-    dispatch(setAlbumId(albumId)); // Dispatch the selected album's ID
+    dispatch(setAlbumId(albumId));
   };
+  const [filterData, setfilterData] = useState([]);
 
   useEffect(() => {
     const fetchHomePage = async () => {
@@ -27,55 +27,71 @@ function Discover() {
           throw new Error('Network response was not ok');
         }
         const data = await res.json();
+        console.log("first");
         console.log(data);
+
         if (data) {
-          setTopCharts(data);
+          let newFilterData = [];
+
+          for (let i = 0; i < data.length; i++) {
+            if (data[i] && Array.isArray(data[i].contents)) { 
+              let albumsOnly = data[i].contents.filter(item => item && item.type === 'ALBUM'); 
+              newFilterData = [...newFilterData, ...albumsOnly];
+            }
+          }
+
+          setfilterData(newFilterData); 
+          setTopCharts(newFilterData);  
+          console.log("filtered");
+          console.log(newFilterData); 
         } else {
           throw new Error('Unexpected data structure');
         }
       } catch (error) {
         console.error('Failed to fetch:', error);
-        setTopCharts([]); // Ensure topCharts is an array
+        setTopCharts([]); 
       } finally {
-        setIsFetching(false); // Set isFetching to false whether successful or not
+        setIsFetching(false); 
       }
     };
 
     fetchHomePage();
-  }, []);
+  }, []); 
 
   const settings = {
-    dots: false,
-    infinite: false,
+    dots: true,
+    infinite: true,
     speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 3
+    slidesToShow: 5,
+    slidesToScroll: 4,
   };
 
-  if (isFetching) return <Loader title="Loading songs...."></Loader>;
+  if (isFetching) return <Loader title="Loading songs...." />;
 
-  const albumObj = topCharts[0];
-  // console.log(albumObj.contents);
+  console.log("topCharts");
+  console.log(topCharts);
 
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-10 w-full ">
-        <h2 className="text-3xl font-bold text-white ">
-          {albumObj.title} {genreTitle}
-        </h2>
-      </div>
+    <div className="flex flex-col mt-3">
+      {topCharts.length > 0 && (
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-10 w-full ">
+          <h2 className="text-3xl font-bold text-white ">
+            Discover
+          </h2>
+        </div>
+      )}
       <div className="sm:justify-start justify-center gap-8">
         <Slider {...settings}>
-          {albumObj.contents.map((song, i) => (
+          {topCharts.map((song, i) => (
             <Link 
               key={i} 
-              to={`/album/:album_id`}
-              onClick={() => albumStateHandle(song.playlistId)} // Pass the album ID to the handler
+              to={`/album/${song.albumId}`}
+              onClick={() => albumStateHandle(song.albumId)} 
             >
               <DiscoverSongCard
                 isPlaying={isPlaying}
                 activeSong={activeSong}
-                data={albumObj.contents}
+                data={topCharts} 
                 song={song}
                 i={i}
               />
