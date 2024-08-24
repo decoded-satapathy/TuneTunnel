@@ -5,12 +5,12 @@ import { DetailsHeader, Error, Loader } from "../"
 import { BesonBoone } from "../../assets/artistDetails"
 import { SongBar } from "../index"
 import { All_API } from "../../../apis";
-import axios from "axios";
 import ArtistBar from "./ArtistBar";
 
 export const FullScreenArtist = () => {
   const location = useLocation();
-  const { artistId } = location.state || {};
+  // const { artistId } = location.state || {};
+  const { artistId } = useParams();
 
   // const { data } = location.state || {};
   // const { data } = location.state() || {};
@@ -23,6 +23,7 @@ export const FullScreenArtist = () => {
       try {
         const response = await fetch(finalApi);
         const jsonRes = await response.json();
+        console.log("ArtistDetails");
         console.log(JSON.stringify(jsonRes));
         setArtistDetails(jsonRes);
       } catch (e) {

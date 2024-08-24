@@ -16,7 +16,7 @@ function AroundYou() {
     // shreya_ghosal: 'UCrC-7fsdTCYeaRBpwA6j-Eg',
     atif_aslam: 'UCVGomUS__PL0c4jDXa0QwXA',
     kk: 'UCeBxx7m7yrwSyvpVpKcMI8w',
-    UDIT_NARAYAN:"UC13ToEQgfmTe8_GW19LYtCg",
+    UDIT_NARAYAN: "UC13ToEQgfmTe8_GW19LYtCg",
     // Neha_Kakkar:"UCsmm-jjSLILh12mZ2aR6Qrg",
     Karan_Aujla: "UCSmK5WX5U4gdtebWjoL81og",
     // Sonu_Nigam:"UCsC4u-BJAd4OX1hJXtwXSOQ"
@@ -28,7 +28,7 @@ function AroundYou() {
         const fetchedDetails = [];
 
         for (const artistId of Object.values(artists)) {
-          const fullUrl = All_API.artist+artistId;
+          const fullUrl = All_API.artist + artistId;
           const response = await fetch(fullUrl);
           const data = await response.json();
           fetchedDetails.push(data);
@@ -46,7 +46,7 @@ function AroundYou() {
   }, []);
 
   function artistHandler(artistId) {
-    navigate('/specific-artist', { state: { artistId } });
+    navigate(`/specific-artist/${artistId}`, { state: { artistId } });
   }
 
   return (

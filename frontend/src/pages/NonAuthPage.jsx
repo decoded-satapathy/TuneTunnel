@@ -54,7 +54,7 @@ const NonAuthPage = () => {
             <Route path="/search" element={<SearchSong />} />
             <Route path="/specific-song" element={<FullScreenSong />} />
             <Route
-              path="/specific-artist"
+              path="/specific-artist/:artistId"
               element={
                 <div className="">
                   <FullScreenArtist />
