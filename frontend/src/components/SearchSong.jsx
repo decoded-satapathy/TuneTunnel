@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 function SearchSong() {
   const location = useLocation();
   const { data } = location.state || {};
-  const { activeSong, isPlaying } = useSelector((state) => state.player);
+  const { activeSong, isPlaying, isSongLoading } = useSelector((state) => state.player);
 
   // console.log(isPlaying);
   return (
@@ -16,7 +16,7 @@ function SearchSong() {
 
         {data.map((song, index) => {
           return (
-            <SearchedSongCard key={index} song={song} activeSong={activeSong} isPlaying={isPlaying} />
+            <SearchedSongCard key={index} isSongLoading={isSongLoading} song={song} activeSong={activeSong} isPlaying={isPlaying} />
           )
         })}
       </div>

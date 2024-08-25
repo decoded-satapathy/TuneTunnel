@@ -7,7 +7,7 @@ import { All_API } from '../../apis';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
-function SearchedSongCard({ artistId, song, isPlaying, activeSong, data, i }) {
+function SearchedSongCard({ isSongLoading, artistId, song, isPlaying, activeSong, data, i }) {
   const songplay = All_API.songUrl + song.videoId;
   const dispatch = useDispatch();
   const location = useLocation();
@@ -37,6 +37,7 @@ function SearchedSongCard({ artistId, song, isPlaying, activeSong, data, i }) {
 
       <div className='z-100 mt-3'>
         <PlayPause
+          isSongLoading={isSongLoading}
           isPlaying={isPlaying}
           activeSong={activeSong}
           song={song}
