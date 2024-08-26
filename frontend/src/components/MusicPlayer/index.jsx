@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { nextSong, prevSong, playPause } from '../../redux/features/playerSlice';
+import { nextSong, prevSong, playPause, setIsSongLoading } from '../../redux/features/playerSlice';
 import Controls from './Controls';
 import Player from './Player';
 import Seekbar from './Seekbar';
@@ -9,7 +9,7 @@ import Track from './Track';
 import VolumeBar from './VolumeBar';
 
 const MusicPlayer = () => {
-  const { activeSong, currentSongs, currentIndex, isActive, isPlaying } = useSelector((state) => state.player);
+  const { activeSong, currentSongs, currentIndex, isActive, isPlaying, isSongLoading } = useSelector((state) => state.player);
   const [duration, setDuration] = useState(0);
   const [seekTime, setSeekTime] = useState(0);
   const [appTime, setAppTime] = useState(0);
@@ -52,12 +52,25 @@ const MusicPlayer = () => {
     }
   };
 
+  const onCanPlay = () => {
+    dispatch(setIsSongLoading(false));
+  }
+
+  const onWaiting = () => {
+    dispatch(setIsSongLoading(true));
+  }
+
+  const onPlaying = () => {
+    dispatch(setIsSongLoading(false));
+  }
+
   console.log("from music player index.jsx")
   return (
     <div className="relative sm:px-12 px-8 w-full flex items-center justify-between">
-      <Track isPlaying={isPlaying} isActive={isActive} activeSong={activeSong} />
+      <Track isPlaying={isPlaying} isActive={isActive} activeSong={activeSong} isSongLoading={isSongLoading} />
       <div className="flex-1 flex flex-col items-center justify-center">
         <Controls
+          isSongLoading={isSongLoading}
           isPlaying={isPlaying}
           isActive={isActive}
           repeat={repeat}
@@ -87,6 +100,9 @@ const MusicPlayer = () => {
           onEnded={handleNextSong}
           onTimeUpdate={(event) => setAppTime(event.target.currentTime)}
           onLoadedData={(event) => setDuration(event.target.duration)}
+          onCanPlay={onCanPlay}
+          onWaiting={onWaiting}
+          onPlaying={onPlaying}
         />
       </div>
       <VolumeBar value={volume} min="0" max="1" onChange={(event) =>

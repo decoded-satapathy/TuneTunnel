@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { playPause, setActiveSong } from "../redux/features/playerSlice";
+import { playPause, setActiveSong, setIsSongLoading } from "../redux/features/playerSlice";
 import PlayPause from './PlayPause';
 
 
@@ -14,7 +14,7 @@ function toCapitalCase(str) {
     .join(' ');
 }
 
-const SongBar = ({ i, songDetails, isPlaying, activeSong }) => {
+const SongBar = ({ i, songDetails, isPlaying, activeSong, isSongLoading }) => {
   const dispatch = useDispatch();
   const handlePauseClick = () => {
     dispatch(playPause(false));
@@ -24,10 +24,11 @@ const SongBar = ({ i, songDetails, isPlaying, activeSong }) => {
     // console.log(songDetails);
     dispatch(setActiveSong({ song: songDetails }));
     dispatch(playPause(true));
+    dispatch(setIsSongLoading(true));
 
   };
   return (
-    <div className={`w-full flex flex-row items-center hover:bg-[#4c426e]  py-2 p-4 rounded-lg cursor-pointer mb-2 justify-between `}>
+    <div className={`w-full flex flex-row items-center hover:bg-black  py-2 p-4 rounded-lg cursor-pointer mb-2 justify-between `}>
       <div>
         <div className="flex-1 flex flex-row justify-between items-center">
           <h3 className="font-bold text-base text-white mr-3">{i + 1}.</h3>
@@ -51,6 +52,7 @@ const SongBar = ({ i, songDetails, isPlaying, activeSong }) => {
 
       <div>
         <PlayPause
+          isSongLoading={isSongLoading}
           isPlaying={isPlaying}
           activeSong={activeSong}
           song={songDetails}

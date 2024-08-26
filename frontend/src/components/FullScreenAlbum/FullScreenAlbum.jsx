@@ -10,7 +10,7 @@ export const FullScreenAlbum = () => {
   const location = useLocation();
   const { albumId } = location.state || {};
   // const albumId = "MPREb_E4GfUXfDfhy";
-  const { activeSong, isPlaying } = useSelector((state) => state.player);
+  const { activeSong, isPlaying, isSongLoading } = useSelector((state) => state.player);
 
   // const { data } = location.state || {};
   // const { data } = location.state() || {};
@@ -64,7 +64,7 @@ export const FullScreenAlbum = () => {
         <div className="pb-24">
           <div className='text-3xl font-bold text-white mb-5'>Songs:</div>
           {albumDetails.songs.map((song, i) => {
-            return <SongBar songDetails={song} activeSong={activeSong} isPlaying={isPlaying} i={i}></SongBar>
+            return <SongBar songDetails={song} activeSong={activeSong} isPlaying={isPlaying} isSongLoading={isSongLoading} i={i}></SongBar>
           })}
         </div>
       </div>

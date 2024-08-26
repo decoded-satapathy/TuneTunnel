@@ -9,7 +9,10 @@ const Player = ({
   onEnded,
   onTimeUpdate,
   onLoadedData,
-  repeat,
+  onCanPlay,
+  onWaiting,
+  onPlaying,
+  repeat
 }) => {
   console.log("activesong is ");
   console.log(activeSong);
@@ -42,6 +45,9 @@ const Player = ({
       onEnded={onEnded}
       onTimeUpdate={onTimeUpdate}
       onLoadedData={onLoadedData}
+      onCanPlay={onCanPlay}
+      onWaiting={onWaiting}
+      onPlaying={onPlaying}
     />
   );
 };
