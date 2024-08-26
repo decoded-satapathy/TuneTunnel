@@ -3,7 +3,7 @@ import { FaPauseCircle, FaPlayCircle } from "react-icons/fa";
 import { SpinnerLoader } from "../assets/AnimatedComponents/Spinner";
 
 const PlayPause = ({ isSongLoading, isPlaying, activeSong, song, handlePause, handlePlay }) => {
-  if (isSongLoading && activeSong?.name === song.name) {
+  if (isSongLoading && activeSong?.videoId === song.videoId) {
     return <SpinnerLoader height="10" width="10"></SpinnerLoader>
   }
   else if (isPlaying && activeSong?.name === song.name) {
