@@ -25,6 +25,7 @@ import SearchSong from "../components/SearchSong";
 import { FullScreenSong } from "../components/FullScreenSong/FullScreenSong";
 import { FullScreenArtist } from "../components/FullScreenArtist/FullScreenArtist";
 import { FullScreenAlbum } from "../components/FullScreenAlbum/FullScreenAlbum";
+import FullScreenTest from "./FullScreenTest";
 const NonAuthPage = () => {
   const { activeSong } = useSelector((state) => state.player);
 
@@ -52,7 +53,7 @@ const NonAuthPage = () => {
             <Route path="/artists/:id" element={<ArtistDetails />} />
             <Route path="/songs/:songid" element={<SongDetails />} />
             <Route path="/search" element={<SearchSong />} />
-            <Route path="/specific-song" element={<FullScreenSong />} />
+            <Route path="/specific-song" element={<FullScreenTest />} />
             <Route
               path="/specific-artist/:artistId"
               element={
@@ -85,10 +86,7 @@ const NonAuthPage = () => {
         </div> */}
 
       {activeSong?.name && (
-        <div className="h-24 fixed bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/50 to-[#05050c] backdrop-blur-sm rounded-t-3xl z-10 w-[70%] mx-auto text-red-700">
-          <MusicPlayer />
-        </div>
-
+        <FullScreenTest />
       )}
     </div>
   )

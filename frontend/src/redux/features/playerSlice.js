@@ -6,7 +6,34 @@ const initialState = {
   isActive: false,
   isPlaying: false,
   isSongLoading: true,
+  isSongFullScreen: false,
   activeSong: {},
+  // activeSong: {
+  //   "type": "SONG",
+  //   "videoId": "phLb_SoPBlA",
+  //   "name": "Not Like Us",
+  //   "artist": {
+  //     "name": "Kendrick Lamar",
+  //     "artistId": "UCprAFmT0C6O4X0ToEXpeFTQ"
+  //   },
+  //   "album": {
+  //     "name": "Not Like Us",
+  //     "albumId": "MPREb_KTxpHsPdd8z"
+  //   },
+  //   "duration": 275,
+  //   "thumbnails": [
+  //     {
+  //       "url": "https://lh3.googleusercontent.com/8qk3C_zpd2FXHVN8BpMBFL6h9J5BlKlbcKOlvDMvIgBWBsAblDoTjU98RGbFH9DxtnN1X5zRzc9sSvWr=w60-h60-l90-rj",
+  //       "width": 60,
+  //       "height": 60
+  //     },
+  //     {
+  //       "url": "https://lh3.googleusercontent.com/8qk3C_zpd2FXHVN8BpMBFL6h9J5BlKlbcKOlvDMvIgBWBsAblDoTjU98RGbFH9DxtnN1X5zRzc9sSvWr=w120-h120-l90-rj",
+  //       "width": 120,
+  //       "height": 120
+  //     }
+  //   ]
+  // },
   genreListId: '',
 };
 
@@ -31,6 +58,10 @@ const playerSlice = createSlice({
 
     setIsSongLoading(state, action) {
       state.isSongLoading = action.payload;
+    },
+
+    setIsSongFullScreen(state, action) {
+      state.isSongFullScreen = action.payload;
     },
 
     nextSong: (state, action) => {
@@ -65,6 +96,6 @@ const playerSlice = createSlice({
   },
 });
 
-export const { setActiveSong, nextSong, prevSong, playPause, selectGenreListId, setIsSongLoading } = playerSlice.actions;
+export const { setActiveSong, nextSong, prevSong, playPause, selectGenreListId, setIsSongLoading, setIsSongFullScreen } = playerSlice.actions;
 
 export default playerSlice.reducer;

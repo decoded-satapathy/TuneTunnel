@@ -9,7 +9,7 @@ import { All_API } from "..//../apis"
 
 
 const Searchbar = () => {
-  useEffect(() => { console.log("form searchBar component") }, [])
+  // useEffect(() => { console.log("form searchBar component") }, [])
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
   const name = useSelector((state) => state.user.name);

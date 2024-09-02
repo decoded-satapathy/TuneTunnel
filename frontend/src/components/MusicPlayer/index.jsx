@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { nextSong, prevSong, playPause, setIsSongLoading } from '../../redux/features/playerSlice';
+import { nextSong, prevSong, playPause, setIsSongLoading, setIsSongFullScreen } from '../../redux/features/playerSlice';
 import Controls from './Controls';
 import Player from './Player';
 import Seekbar from './Seekbar';
 import Track from './Track';
 import VolumeBar from './VolumeBar';
+import { MaximiseMinimise } from './MaximiseMinimise';
 
 const MusicPlayer = () => {
-  const { activeSong, currentSongs, currentIndex, isActive, isPlaying, isSongLoading } = useSelector((state) => state.player);
+  const { activeSong, currentSongs, currentIndex, isActive, isPlaying, isSongLoading, isSongFullScreen } = useSelector((state) => state.player);
   const [duration, setDuration] = useState(0);
   const [seekTime, setSeekTime] = useState(0);
   const [appTime, setAppTime] = useState(0);
@@ -34,6 +35,7 @@ const MusicPlayer = () => {
 
   const handleNextSong = () => {
     dispatch(playPause(false));
+    dispatch(setIsSongFullScreen(false));
 
     if (!shuffle) {
       dispatch(nextSong((currentIndex + 1) % currentSongs.length));
@@ -64,10 +66,15 @@ const MusicPlayer = () => {
     dispatch(setIsSongLoading(false));
   }
 
-  console.log("from music player index.jsx")
   return (
     <div className="relative sm:px-12 px-8 w-full flex items-center justify-between">
-      <Track isPlaying={isPlaying} isActive={isActive} activeSong={activeSong} isSongLoading={isSongLoading} />
+      <Track
+        isPlaying={isPlaying}
+        isActive={isActive}
+        activeSong={activeSong}
+        isSongLoading={isSongLoading}
+        isSongFullScreen={isSongFullScreen}
+      />
       <div className="flex-1 flex flex-col items-center justify-center">
         <Controls
           isSongLoading={isSongLoading}
@@ -109,6 +116,7 @@ const MusicPlayer = () => {
         setVolume(event.target.value)
       }
         setVolume={setVolume} />
+      <MaximiseMinimise />
     </div>
   );
 };

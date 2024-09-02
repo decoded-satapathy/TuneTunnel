@@ -10,6 +10,7 @@
   "dependencies": {
     "@heroicons/react": "^2.1.1",
     "@reduxjs/toolkit": "^1.8.5",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "axios": "^1.7.5",
     "express": "^4.18.3",
     "react": "^18.2.0",

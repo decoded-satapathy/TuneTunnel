@@ -1,11 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { playPause, setActiveSong, setIsSongLoading } from "../redux/features/playerSlice";
+import { playPause, setActiveSong, setIsSongFullScreen, setIsSongLoading } from "../redux/features/playerSlice";
 import PlayPause from './PlayPause';
-
-
-
 
 
 function toCapitalCase(str) {
@@ -19,12 +16,17 @@ const SongBar = ({ i, songDetails, isPlaying, activeSong, isSongLoading }) => {
   const handlePauseClick = () => {
     dispatch(playPause(false));
   };
-  const handlePlayClick = () => {
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  const handlePlayClick = async () => {
     // dispatch(setActiveSong({ song, data, i }));
     // console.log(songDetails);
     dispatch(setActiveSong({ song: songDetails }));
     dispatch(playPause(true));
     dispatch(setIsSongLoading(true));
+    await sleep(10);
+    dispatch(setIsSongFullScreen(true));
 
   };
   return (

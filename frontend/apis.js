@@ -5,5 +5,6 @@ export const All_API = {
   "lyrics": "http://localhost:3001/api/v1/lyrics",
   "artist": "http://localhost:3001/api/v1/search/artist/",
   "songUrl": "http://localhost:3001/api/v1/stream?videoId=",
-  "album": "http://localhost:3001/api/v1/search/album/"
+  "album": "http://localhost:3001/api/v1/search/album/",
+  "songDetails": "http://localhost:3001/api/v1/search/songDetail/"
 }

@@ -1,10 +1,9 @@
 import React from "react";
 
-const Track = ({ isPlaying, isActive, activeSong, isSongLoading }) => (
+const Track = ({ isPlaying, isActive, activeSong, isSongFullScreen }) => (
   < div className="flex-1 flex items-center justify-start" >
     <div
-      className={`${isPlaying && isActive && !isSongLoading ? "animate-[spin_3s_linear_infinite]" : ""
-        } hidden sm:block h-16 w-16 mr-4`}
+      className={`hidden sm:block h-16 w-16 mr-4`}
     >
       <img
         src={activeSong?.thumbnails[0].url}
@@ -14,10 +13,10 @@ const Track = ({ isPlaying, isActive, activeSong, isSongLoading }) => (
     </div>
     <div className="flex flex-row text-white gap-5 items-center">
       <div className="max-w-[60%]">
-        <p className="truncate text-white font-bold text-lg">
+        <p className={`truncate text-white font-bold text-lg ${isSongFullScreen ? 'max-w-[20rem]' : 'max-w-[10rem]'}`}>
           {activeSong?.name ? activeSong?.name : "No active Song"}
         </p>
-        <p className="truncate text-gray-300">
+        <p className={`text-gray-300  ${isSongFullScreen ? 'w-[20rem] line-clamp-5 pr-20' : 'truncate max-w-[10rem]'}`}>
           {activeSong?.artist.name ? activeSong?.artist.name : "No active Song"}
         </p>
       </div>

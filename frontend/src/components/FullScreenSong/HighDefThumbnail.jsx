@@ -12,7 +12,7 @@ export function HighDefThumbnail({ videoId }) {
     <div className="relative overflow-hidden w-[429px] h-[430px] mx-auto rounded-lg">
       {isLoading ? (
         <div role="status" class="w-full h-full animate-pulse">
-          <div class="w-full h-full bg-red-100 rounded-lg dark:bg-red-300  mb-4"></div>
+          <div class="w-full h-full bg-gray-100 rounded-lg dark:bg-gray-400  mb-4"></div>
         </div>
       ) : null}
       <img
