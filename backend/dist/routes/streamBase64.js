@@ -111,9 +111,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const ytdl_core_1 = __importDefault(require("@distube/ytdl-core"));
+const bs58_1 = __importDefault(require("bs58")); // Base58 encoding library
 const streamRouterChunked = (0, express_1.Router)();
 streamRouterChunked.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     const videoId = req.query.videoId;
     if (!videoId) {
         return res.status(400).send('Video ID is required.');
@@ -126,18 +126,18 @@ streamRouterChunked.get('/', (req, res) => __awaiter(void 0, void 0, void 0, fun
         if (!audioFormat) {
             return res.status(404).send('No audio stream found.');
         }
-        // Set up response headers for progressive streaming
-        const totalLength = parseInt((_a = audioFormat.contentLength) !== null && _a !== void 0 ? _a : '0', 10);
-        res.setHeader('Content-Type', 'audio/mpeg');
-        res.setHeader('Content-Length', totalLength);
-        // Stream audio in real-time directly from YouTube to client
-        const stream = (0, ytdl_core_1.default)(videoUrl, {
-            format: audioFormat,
-            highWaterMark: 1 << 25, // 32MB chunks to prevent memory overload
+        // Set headers for streaming plain text (encoded audio)
+        res.setHeader('Content-Type', 'text/plain');
+        // Stream the audio in chunks, encode each chunk using Base58, and send it as text
+        const stream = (0, ytdl_core_1.default)(videoUrl, { format: audioFormat, highWaterMark: 1 << 10 });
+        stream.on('data', (chunk) => {
+            // Encode the audio chunk using Base58
+            const encodedChunk = bs58_1.default.encode(chunk);
+            res.write(encodedChunk); // Send the encoded text
         });
-        // Pipe the audio stream directly to the client
-        stream.pipe(res);
-        // Handle stream errors
+        stream.on('end', () => {
+            res.end(); // End the response when the stream ends
+        });
         stream.on('error', (err) => {
             console.error(`Error streaming audio: ${err.message}`);
             if (!res.headersSent) {
