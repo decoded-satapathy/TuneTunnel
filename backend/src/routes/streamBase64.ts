@@ -101,6 +101,7 @@
 
 import { Router, Request, Response } from 'express';
 import ytdl from '@distube/ytdl-core';
+import base58 from 'bs58'; // Base58 encoding library
 
 const streamRouterChunked = Router();
 
@@ -122,28 +123,28 @@ streamRouterChunked.get('/', async (req: Request, res: Response) => {
       return res.status(404).send('No audio stream found.');
     }
 
-    // Set up response headers for progressive streaming
-    const totalLength = parseInt(audioFormat.contentLength ?? '0', 10);
-    res.setHeader('Content-Type', 'audio/mpeg');
-    res.setHeader('Content-Length', totalLength);
+    // Set headers for streaming plain text (encoded audio)
+    res.setHeader('Content-Type', 'text/plain');
 
-    // Stream audio in real-time directly from YouTube to client
-    const stream = ytdl(videoUrl, {
-      format: audioFormat,
-      highWaterMark: 1 << 10, // 32MB chunks to prevent memory overload
+    // Stream the audio in chunks, encode each chunk using Base58, and send it as text
+    const stream = ytdl(videoUrl, { format: audioFormat, highWaterMark: 1 << 10 });
+
+    stream.on('data', (chunk) => {
+      // Encode the audio chunk using Base58
+      const encodedChunk = base58.encode(chunk);
+      res.write(encodedChunk); // Send the encoded text
     });
 
-    // Pipe the audio stream directly to the client
-    stream.pipe(res);
+    stream.on('end', () => {
+      res.end(); // End the response when the stream ends
+    });
 
-    // Handle stream errors
-    stream.on('error', (err: Error) => {
+    stream.on('error', (err) => {
       console.error(`Error streaming audio: ${err.message}`);
       if (!res.headersSent) {
         res.status(500).send('Error streaming audio.');
       }
     });
-
   } catch (err) {
     console.error(`Error processing audio: ${(err as Error).message}`);
     res.status(500).send('Error processing audio.');
