@@ -130,7 +130,7 @@ streamRouterChunked.get('/', async (req: Request, res: Response) => {
     // Stream audio in real-time directly from YouTube to client
     const stream = ytdl(videoUrl, {
       format: audioFormat,
-      highWaterMark: 1 << 18, // 32MB chunks to prevent memory overload
+      highWaterMark: 1 << 10, // 32MB chunks to prevent memory overload
     });
 
     // Pipe the audio stream directly to the client
