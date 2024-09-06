@@ -37,7 +37,7 @@ const NonAuthPage = () => {
     slidesToScroll: 3,
   };
   return (
-    <div className="relative flex flex-col w-screen h-screen bg-gradient-to-b from-[#9a0f0f] to-[#2e0101] overflow-y-scroll hide-scrollbar">
+    <div className="relative flex flex-col w-screen h-screen bg-gradient-to-b from-[#330202] to-[#000000] overflow-y-scroll hide-scrollbar">
       {/* <AudioPlayer /> */}
       <Sidebar />
       <div>
