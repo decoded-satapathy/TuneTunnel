@@ -16,6 +16,7 @@ import {
   Search,
   SongDetails,
   TopCharts,
+  Base64Stream
 } from "./";
 import { useState } from "react";
 import "slick-carousel/slick/slick.css";
@@ -63,6 +64,7 @@ const NonAuthPage = () => {
               }
             />
             <Route path='/specific-album' element={<FullScreenAlbum />} />
+            <Route path='/base64Stream/:videoId' element={<Base64Stream />} />
           </Routes>
         </div>
         {/* <div className='h-[calc(100vh-72px)]  overflow-y-scroll hide-scrollbar lex xl:flex-row flex-col-reverse'>

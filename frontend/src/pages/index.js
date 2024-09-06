@@ -8,6 +8,7 @@ import AroundYou from './AroundYou';
 // import Signup from "./Signup";
 import NonAuthPage from './NonAuthPage';
 import { SignIn } from './Signin';
+import { Base64Stream } from "./Base64Stream"
 
 export {
   Discover,
@@ -20,4 +21,5 @@ export {
   // Signup,
   SignIn,
   NonAuthPage,
+  Base64Stream
 };

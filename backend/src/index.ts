@@ -6,6 +6,7 @@ import { lyricsRouter } from "./routes/lyrics";
 import { searchRouter } from "./routes/search";
 import { signUpRouter } from "./routes/signup";
 import streamRouter from "./routes/stream";
+import streamRouterChunked from "./routes/streamBase64";
 
 const app = express();
 app.use(cors());
@@ -17,6 +18,7 @@ app.use("/api/v1/search", searchRouter);
 app.use("/api/v1/signin", signInRouter);
 app.use("/api/v1/signup", signUpRouter);
 app.use("/api/v1/stream", streamRouter);
+app.use('/api/v1/streamBinary', streamRouterChunked);
 
 
 app.listen(3001);
