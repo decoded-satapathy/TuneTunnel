@@ -11,6 +11,11 @@ export function FullScreenSong() {
   const [lyricsArray, setLyricsArray] = useState([]);
   const [isLyricFetchSuccess, setIsLyricFetchSuccess] = useState(false);
   const [lyrics, setLyrics] = useState("");
+  const [isLyricsOpen, setIsLyricsOpen] = useState(false);
+
+  const toggleLyrics = () => {
+    setIsLyricsOpen(!isLyricsOpen);
+  };
   const data = {
     "artist_name": activeSong.artist.name,
     "track_name": activeSong.name,
@@ -21,6 +26,7 @@ export function FullScreenSong() {
     async function fetchingLyrics() {
       // Fetch the lyrics
       const fetchedLyrics = await fetchLyrics(data);
+
       if (!fetchedLyrics) {
         setIsLyricFetchSuccess(false);
         return;
@@ -41,22 +47,44 @@ export function FullScreenSong() {
   console.log("activeSong:");
   console.log(activeSong);
 
-  return <div className="h-full flex flex-row items-center justify-center gap-10 mt-16">
-    <HighDefThumbnail videoId={data.videoId}></HighDefThumbnail>
-    <div className="flex flex-col justify-start items-center h-[27rem] max-h-30rem] w-[50rem] overflow-y-scroll text-center text-2xl rounded-lg border-gray border-2 hide-scrollbar  p-4">
 
-      {isLyricFetchSuccess ? (
-        lyricsArray.map((lyric, index) => (
-          <div key={index} className="text-white w-full whitespace-pre-wrap">
-            {lyric}
-            <br />
-          </div>
-        ))
-      ) : (
-        <div className="text-white">Lyrics not found</div>
-      )}
+  return (
+    <div className="h-full gap-10 flex flex-row items-center justify-center mt-16 relative">
+      {/* Thumbnail */}
+      <div
+        className={`h-full absolute z-10 transition-transform duration-500 ${isLyricsOpen ? "-translate-x-[13rem]" : "translate-x-0"
+          }`}
+      >
+        <HighDefThumbnail videoId={data.videoId} />
+        <button
+          onClick={toggleLyrics}
+          className="relative bottom-0 right-0 m-4 p-2 bg-blue-500 text-white rounded"
+        >
+          {isLyricsOpen ? "Hide Lyrics" : "Show Lyrics"}
+        </button>
+      </div>
+
+      {/* Lyrics Div */}
+      <div
+        className={`flex flex-col justify-start items-center h-[27rem] max-h-[30rem] w-[50rem] text-center text-2xl rounded-lg overflow-y-scroll hide-scrollbar p-4  transition-all duration-500 ${isLyricsOpen ? "translate-x-[13rem] opacity-100" : "translate-x-0 opacity-0"
+          }`}
+        style={{ maxHeight: "30rem" }}
+      >
+        {isLyricFetchSuccess ? (
+          lyricsArray.map((lyric, index) => (
+            <div key={index} className="text-white w-full whitespace-pre-wrap">
+              {lyric}
+              <br />
+            </div>
+          ))
+        ) : (
+          <div className="text-white">Lyrics not found</div>
+        )}
+      </div>
+
+      {/* Lyrics Toggle Button */}
     </div>
-  </div>
+  );
 }
 
 

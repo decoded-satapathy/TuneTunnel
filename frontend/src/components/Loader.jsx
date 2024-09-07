@@ -1,13 +1,12 @@
 import { loadiermotion } from "../assets";
-export default function Loader({ title }) {
+export default function Loader() {
   return (
-    <div className="flex flex-col justify-center items-center w-[90vw] h-full">
+    <div className="flex flex-col justify-center items-center  h-full w-full ">
       <img
         src={loadiermotion}
         alt="loader"
-        className="w-32 h-32 object-contain"
+        className="w-32 h-32 "
       ></img>
-      <h1 className="text-white">{title || "Loading"}</h1>
     </div>
   );
 }

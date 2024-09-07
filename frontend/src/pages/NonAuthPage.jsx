@@ -39,8 +39,9 @@ const NonAuthPage = () => {
   };
   return (
     <div className="relative flex flex-col w-screen h-screen bg-gradient-to-b from-[#330202] to-[#000000] overflow-y-scroll hide-scrollbar">
-      {/* <AudioPlayer /> */}
-      <Sidebar />
+      <div className="fixed h-screen flex flex-col justify-center">
+        <Sidebar />
+      </div>
       <div>
         <Searchbar />
       </div>

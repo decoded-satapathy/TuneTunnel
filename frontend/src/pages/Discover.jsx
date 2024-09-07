@@ -15,7 +15,7 @@ function Discover() {
   const navigate = useNavigate();
   const albumStateHandle = (albumId) => {
     // dispatch(setAlbumId(albumId));
-    navigate("/specific-album",{state:{albumId}});
+    navigate("/specific-album", { state: { albumId } });
   };
   const [filterData, setfilterData] = useState([]);
 
@@ -34,29 +34,29 @@ function Discover() {
           let newFilterData = [];
 
           for (let i = 0; i < data.length; i++) {
-            if (data[i] && Array.isArray(data[i].contents)) { 
-              let albumsOnly = data[i].contents.filter(item => item && item.type === 'ALBUM'); 
+            if (data[i] && Array.isArray(data[i].contents)) {
+              let albumsOnly = data[i].contents.filter(item => item && item.type === 'ALBUM');
               newFilterData = [...newFilterData, ...albumsOnly];
             }
           }
 
-          setfilterData(newFilterData); 
-          setTopCharts(newFilterData);  
+          setfilterData(newFilterData);
+          setTopCharts(newFilterData);
           console.log("filtered");
-          console.log(newFilterData); 
+          console.log(newFilterData);
         } else {
           throw new Error('Unexpected data structure');
         }
       } catch (error) {
         console.error('Failed to fetch:', error);
-        setTopCharts([]); 
+        setTopCharts([]);
       } finally {
-        setIsFetching(false); 
+        setIsFetching(false);
       }
     };
 
     fetchHomePage();
-  }, []); 
+  }, []);
 
   const settings = {
     dots: true,
@@ -66,7 +66,11 @@ function Discover() {
     slidesToScroll: 4,
   };
 
-  if (isFetching) return <Loader title="Loading songs...." />;
+  if (isFetching) return (
+    <div className="w-full h-full">
+      <Loader />);
+    </div>
+  )
 
   console.log("topCharts");
   console.log(topCharts);
@@ -83,15 +87,15 @@ function Discover() {
       <div className="sm:justify-start justify-center gap-8">
         <Slider {...settings}>
           {topCharts.map((song, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               // to={`/album/${song.albumId}`}
-              onClick={() => albumStateHandle(song.albumId)} 
+              onClick={() => albumStateHandle(song.albumId)}
             >
               <DiscoverSongCard
                 isPlaying={isPlaying}
                 activeSong={activeSong}
-                data={topCharts} 
+                data={topCharts}
                 song={song}
                 i={i}
               />

@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout, login } from "../redux/features/userSlice";
 import { logo } from "../assets";
 import { All_API } from "..//../apis"
+import { setIsSearching } from "../redux/features/playerSlice";
+import { SpinnerLoader } from "../assets/AnimatedComponents/Spinner";
 
 
 
@@ -13,6 +15,7 @@ const Searchbar = () => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
   const name = useSelector((state) => state.user.name);
+  const { isSearching } = useSelector((state) => state.player);
   const dispatch = useDispatch();
   const [inputSong, setInputSong] = useState("");
   const [show, setShow] = useState(false);
@@ -20,6 +23,7 @@ const Searchbar = () => {
     navigate("/search", { state: { data } })
   }
   async function searchSong() {
+    dispatch(setIsSearching(true));
     if (!inputSong) return; // Prevent search if input is empty
 
     const encodedName = encodeURIComponent(inputSong);
@@ -34,6 +38,7 @@ const Searchbar = () => {
       console.log(data);
       searchPage(data);
       setShow(true);
+      dispatch(setIsSearching(false));
     } catch (error) {
       console.error("Error fetching the song data:", error);
     }
@@ -54,14 +59,13 @@ const Searchbar = () => {
   return (
     <form onSubmit={submitForm} autoComplete="off" className="p-2 text-gray-400 focus-within:text-gray-600 relative" >
 
-      <div className="relative flex flex-row justify-between items-center">
+      <div className="relative flex flex-row justify-between ">
 
         <Link to={"/"}>
           <img src={logo} alt="logo" className="w-[170px] h-32 object-contain"></img>
         </Link>
         <div className=" w-[50%]">
-          <div onSubmit={submitForm} className='absolute top-5 right-[24rem] flex w-[50%] bg-red-600 rounded-[20px]'>
-
+          <div onSubmit={submitForm} className='absolute top-5 right-[24rem] flex flex-row  items-center w-[50%] bg-black border-2 border-red-900  rounded-[20px]'>
             <input
               name="search-field"
               autoComplete="off"
@@ -72,7 +76,10 @@ const Searchbar = () => {
               className="lex-1 bg-black border-none outline-none placeholder-gray-500 text-base text-white p-2 rounded-[20px] pl-10 w-[95%] ml-1"
             ></input>
 
-            <FiSearch onClick={submitForm} size={20} className="h-5 ml-2 mr-4 mt-[0.6rem] text-lg text-white">
+            {isSearching ? (
+              <SpinnerLoader height="5" width="5"></SpinnerLoader>
+            ) : (<div></div>)}
+            <FiSearch onClick={submitForm} size={20} className="h-5 ml-2 mr-4  text-lg text-white">
             </FiSearch>
 
 
@@ -100,7 +107,7 @@ const Searchbar = () => {
           </div>
         ) :
 
-          <button type="button" className="text-white mr-14 md:mr-4 bg-gradient-to-r from-[#1f1e1e] via-[#1f1e1e] to-[#aa3131] hover:bg-gradient-to-r hover:from-[#aa3131] hover:via-[#1f1e1e] hover:to-[#1f1e1e] font-bold rounded-full text-md px-5 py-2.5 text-center mb-2  border border-gray-600 absolute top-4 right-3"
+          <button type="button" className="text-white mr-14 md:mr-4 bg-black font-bold rounded-full text-md px-5 py-2.5 text-center mb-2  border border-red-600 absolute top-4 right-3"
             onClick={() => {
               navigate('/signin');
             }}>Log In</button>
