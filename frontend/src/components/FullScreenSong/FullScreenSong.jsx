@@ -44,9 +44,6 @@ export function FullScreenSong() {
     fetchingLyrics();
   }, []);
 
-  console.log("activeSong:");
-  console.log(activeSong);
-
 
   return (
     <div className="h-full gap-10 flex flex-row items-center justify-center mt-16 relative">
@@ -66,7 +63,7 @@ export function FullScreenSong() {
 
       {/* Lyrics Div */}
       <div
-        className={`flex flex-col justify-start items-center h-[27rem] max-h-[30rem] w-[50rem] text-center text-2xl rounded-lg overflow-y-scroll hide-scrollbar p-4  transition-all duration-500 ${isLyricsOpen ? "translate-x-[13rem] opacity-100" : "translate-x-0 opacity-0"
+        className={`pl-[16rem] flex flex-col justify-start items-center h-[27rem] max-h-[30rem] w-[50rem] text-center text-2xl rounded-lg overflow-y-scroll hide-scrollbar p-4  transition-all duration-500 ${isLyricsOpen ? "translate-x-[13rem] opacity-100" : "translate-x-0 opacity-0"
           }`}
         style={{ maxHeight: "30rem" }}
       >

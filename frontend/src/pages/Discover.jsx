@@ -6,11 +6,14 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { All_API } from "../../apis";
 function Discover() {
   const [topCharts, setTopCharts] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const dispatch = useDispatch();
-  const { activeSong, isPlaying, genreListId } = useSelector((state) => state.player);
+  const { activeSong, isPlaying, genreListId } = useSelector(
+    (state) => state.player
+  );
   const genreTitle = genreListId;
   const navigate = useNavigate();
   const albumStateHandle = (albumId) => {
@@ -22,9 +25,9 @@ function Discover() {
   useEffect(() => {
     const fetchHomePage = async () => {
       try {
-        const res = await fetch('http://localhost:3001/api/v1/search/homepage');
+        const res = await fetch(All_API.homepage);
         if (!res.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         const data = await res.json();
         console.log("first");
@@ -35,7 +38,9 @@ function Discover() {
 
           for (let i = 0; i < data.length; i++) {
             if (data[i] && Array.isArray(data[i].contents)) {
-              let albumsOnly = data[i].contents.filter(item => item && item.type === 'ALBUM');
+              let albumsOnly = data[i].contents.filter(
+                (item) => item && item.type === "ALBUM"
+              );
               newFilterData = [...newFilterData, ...albumsOnly];
             }
           }
@@ -45,10 +50,10 @@ function Discover() {
           console.log("filtered");
           console.log(newFilterData);
         } else {
-          throw new Error('Unexpected data structure');
+          throw new Error("Unexpected data structure");
         }
       } catch (error) {
-        console.error('Failed to fetch:', error);
+        console.error("Failed to fetch:", error);
         setTopCharts([]);
       } finally {
         setIsFetching(false);
@@ -66,11 +71,13 @@ function Discover() {
     slidesToScroll: 4,
   };
 
-  if (isFetching) return (
-    <div className="w-full h-full">
-      <Loader />);
-    </div>
-  )
+  if (isFetching)
+    return (
+      <div className="w-full h-full">
+        <Loader />
+        );
+      </div>
+    );
 
   console.log("topCharts");
   console.log(topCharts);
@@ -79,9 +86,7 @@ function Discover() {
     <div className="flex flex-col mt-3">
       {topCharts.length > 0 && (
         <div className="flex flex-col sm:flex-row justify-between items-center mb-10 w-full ">
-          <h2 className="text-3xl font-bold text-white ">
-            Discover
-          </h2>
+          <h2 className="text-3xl font-bold text-white ">Discover</h2>
         </div>
       )}
       <div className="sm:justify-start justify-center gap-8">

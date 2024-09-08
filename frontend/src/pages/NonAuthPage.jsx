@@ -15,7 +15,7 @@ import {
   Discover,
   Search,
   SongDetails,
-  TopCharts,
+  Videos,
   Base64Stream
 } from "./";
 import { useState } from "react";
@@ -45,12 +45,14 @@ const NonAuthPage = () => {
       <div>
         <Searchbar />
       </div>
-      <div className="flex flex-col ml-[7rem]">
-        <div className="max-h-[25rem] mr-7 mb-4 px-3 pb-2
-         hide-scrollbar">
-          <Routes>
+      <div className="flex flex-col ml-[7rem] h-full w-full">
+        <div className=" mr-7 mb-4 px-3 pb-2
+         hide-scrollbar h-full w-full">
+          <Routes >
             <Route path="/" element={<Discover />} />
-            <Route path="/top-charts" element={<TopCharts />} />
+            <Route path="/videos" element={
+              <Videos />
+            } />
             <Route path="/artist" element={<AroundYou />} />
             <Route path="/artists/:id" element={<ArtistDetails />} />
             <Route path="/songs/:songid" element={<SongDetails />} />

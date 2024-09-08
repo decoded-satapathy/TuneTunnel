@@ -49,6 +49,10 @@ function AroundYou() {
     navigate(`/specific-artist/${artistId}`, { state: { artistId } });
   }
 
+  if (loading) {
+    return <Loader />
+  }
+
   return (
     <div className="grid grid-cols-4 gap-4 overflow-y-scroll hide-scrollbar pb-24 w-[80%] mx-auto">
       {loading ? (

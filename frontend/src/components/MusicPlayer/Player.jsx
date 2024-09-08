@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useRef, useEffect } from "react";
+import { All_API } from "../../../apis";
 
 const Player = ({
   activeSong,
@@ -12,7 +13,7 @@ const Player = ({
   onCanPlay,
   onWaiting,
   onPlaying,
-  repeat
+  repeat,
 }) => {
   const ref = useRef(null);
   // eslint-disable-next-line no-unused-expressions
@@ -35,7 +36,7 @@ const Player = ({
   return (
     <audio
       // src={activeSong.ringtone}
-      src={`http://localhost:3001/api/v1/stream?videoId=${activeSong.videoId}`}
+      src={`${All_API.stream}?videoId=${activeSong.videoId}`}
       // src="http://localhost:3001/api/v1/stream?videoId=XxxfQ7-aMrE"
 
       ref={ref}

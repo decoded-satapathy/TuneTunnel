@@ -27,7 +27,12 @@ const Searchbar = () => {
     if (!inputSong) return; // Prevent search if input is empty
 
     const encodedName = encodeURIComponent(inputSong);
-    const fullAPI = All_API.search + encodedName;
+    let fullAPI;
+    if (window.location.pathname.includes("/videos")) {
+      fullAPI = `${All_API.videos}?q=${encodedName}`;
+    } else {
+      fullAPI = All_API.search + encodedName;
+    }
 
     try {
       let res = await fetch(fullAPI);
@@ -35,7 +40,6 @@ const Searchbar = () => {
         throw new Error(`HTTP error! Status: ${res.status}`);
       }
       let data = await res.json();
-      console.log(data);
       searchPage(data);
       setShow(true);
       dispatch(setIsSearching(false));
